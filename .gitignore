@@ -1,0 +1,10 @@
+customers.json
+daily_entries.json
+monthly_bills.json
+cleared_bills.json
+
+__pycache__/
+*.pyc
+.env
+.venv/
+venv/

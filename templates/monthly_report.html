@@ -1,0 +1,442 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Monthly Milk Report</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+
+</head>
+
+
+<body>
+
+<div class="monthly-report-page">
+
+
+    <!-- =====================================================
+         HEADER
+         ===================================================== -->
+
+    <div class="monthly-report-header">
+
+        <h1>
+            📊 Monthly Milk Report
+        </h1>
+
+        <p>
+            Select a customer and month
+        </p>
+
+    </div>
+
+
+
+    <!-- =====================================================
+         CUSTOMER + MONTH SELECTION
+         ===================================================== -->
+
+    <div class="month-selector-box">
+
+        <form method="GET"
+              action="{{ url_for('monthly_report') }}">
+
+
+            <!-- CUSTOMER -->
+
+            <div class="report-input">
+
+                <label for="customer_id">
+                    Customer
+                </label>
+
+                <select id="customer_id"
+                        name="customer_id"
+                        required>
+
+                    <option value="">
+                        Select Customer
+                    </option>
+
+
+                    {% for customer in customers %}
+
+                        <option
+                            value="{{ customer.id }}"
+
+                            {% if selected_customer_id|int == customer.id|int %}
+                                selected
+                            {% endif %}
+                        >
+
+                            {{ customer.name }}
+
+                        </option>
+
+                    {% endfor %}
+
+                </select>
+
+            </div>
+
+
+
+            <!-- MONTH -->
+
+            <div class="report-input">
+
+                <label for="month">
+                    Month
+                </label>
+
+                <input
+                    type="month"
+                    id="month"
+                    name="month"
+                    value="{{ selected_month }}"
+                    required
+                >
+
+            </div>
+
+
+
+            <!-- GENERATE REPORT -->
+
+            <button
+                type="submit"
+                class="btn"
+            >
+
+                Generate Report
+
+            </button>
+
+
+        </form>
+
+    </div>
+
+
+
+    <!-- =====================================================
+         REPORT
+         ===================================================== -->
+
+    {% if report %}
+
+
+        <div class="customer-report-card">
+
+
+            <!-- =================================================
+                 CUSTOMER INFORMATION
+                 ================================================= -->
+
+            <div class="customer-report-title">
+
+                <h2>
+                    {{ report.customer.name }}
+                </h2>
+
+
+                {% if report.customer.details %}
+
+                    <p>
+                        {{ report.customer.details }}
+                    </p>
+
+                {% endif %}
+
+            </div>
+
+
+
+            <!-- =================================================
+                 BASIC INFORMATION
+                 ================================================= -->
+
+            <div class="customer-basic-info">
+
+
+                <!-- BILLING PERIOD -->
+
+                <div class="info-item">
+
+                    <span>
+                        Billing Period
+                    </span>
+
+                    <strong>
+
+                        {{ report.billing_start }}
+
+                        to
+
+                        {{ report.calculation_end }}
+
+                    </strong>
+
+                </div>
+
+
+
+                <!-- DEFAULT QUANTITY -->
+
+                <div class="info-item">
+
+                    <span>
+                        Default Quantity
+                    </span>
+
+                    <strong>
+
+                        {{ report.customer.default_qty }} L/day
+
+                    </strong>
+
+                </div>
+
+
+
+                <!-- RATE -->
+
+                <div class="info-item">
+
+                    <span>
+                        Rate
+                    </span>
+
+                    <strong>
+
+                        ₹{{ report.rate }} / L
+
+                    </strong>
+
+                </div>
+
+
+            </div>
+
+
+
+            <!-- =================================================
+                 MILK SUMMARY
+                 ================================================= -->
+
+            <div class="milk-summary">
+
+
+                <h3>
+                    Milk Summary
+                </h3>
+
+
+
+                <div class="milk-summary-grid">
+
+
+                    <!-- DAYS TAKING MILK -->
+
+                    <div class="summary-box">
+
+                        <span>
+                            Days Taking Milk
+                        </span>
+
+                        <strong>
+
+                            {{ report.total_days_taking_milk }}
+
+                        </strong>
+
+                    </div>
+
+
+
+                    <!-- NO MILK DAYS -->
+
+                    <div class="summary-box">
+
+                        <span>
+                            No-Milk Days
+                        </span>
+
+                        <strong>
+
+                            {{ report.no_milk_days }}
+
+                        </strong>
+
+                    </div>
+
+
+
+                    <!-- EXTRA LITERS -->
+
+                    <div class="summary-box">
+
+                        <span>
+                            Extra Liters
+                        </span>
+
+                        <strong>
+
+                            {{ report.extra_liters }} L
+
+                        </strong>
+
+                    </div>
+
+
+                </div>
+
+
+
+                <!-- =================================================
+                     TOTAL LITERS
+                     ================================================= -->
+
+                <div class="total-liters-row">
+
+                    <span>
+                        Total Liters
+                    </span>
+
+                    <strong>
+
+                        {{ report.total_liters }} L
+
+                    </strong>
+
+                </div>
+
+
+            </div>
+
+
+
+            <!-- =================================================
+                 NO MILK DETAILS
+                 ================================================= -->
+
+            {% if report.no_milk_details %}
+
+                <div class="no-milk-details">
+
+
+                    <h3>
+                        No-Milk Details
+                    </h3>
+
+
+                    {% for item in report.no_milk_details %}
+
+                        <div class="no-milk-item">
+
+
+                            <span>
+
+                                {{ item.date }}
+
+                            </span>
+
+
+                            <span>
+
+                                {{ item.reason }}
+
+                            </span>
+
+
+                        </div>
+
+                    {% endfor %}
+
+
+                </div>
+
+            {% endif %}
+
+
+
+            <!-- =================================================
+                 TOTAL AMOUNT
+                 ================================================= -->
+
+            <div class="total-amount-row">
+
+
+                <span>
+                    Total Amount
+                </span>
+
+
+                <strong>
+
+                    ₹{{ report.total_amount }}
+
+                </strong>
+
+
+            </div>
+
+
+        </div>
+
+
+    <!-- =====================================================
+         NO REPORT
+         ===================================================== -->
+
+    {% elif selected_customer_id %}
+
+
+        <div class="no-report-message">
+
+            <p>
+
+                No billing information is available
+                for the selected customer and month.
+
+            </p>
+
+        </div>
+
+
+    {% endif %}
+
+
+
+    <!-- =====================================================
+         BACK TO HOME
+         ===================================================== -->
+
+    <div class="monthly-report-back">
+
+        <a
+            href="{{ url_for('home') }}"
+            class="back-link"
+        >
+
+            ← Back to Home
+
+        </a>
+
+    </div>
+
+
+</div>
+
+
+</body>
+
+</html>

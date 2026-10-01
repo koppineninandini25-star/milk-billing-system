@@ -1,0 +1,958 @@
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: linear-gradient(135deg, #74ebd5, #9face6);
+    min-height: 100vh;
+}
+
+.container,
+.form-container,
+.wide-container {
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+.container {
+    width: 80%;
+    max-width: 800px;
+    margin: 100px auto;
+    padding: 40px;
+    text-align: center;
+}
+
+.form-container {
+    width: 80%;
+    max-width: 600px;
+    margin: 50px auto;
+    padding: 35px;
+}
+
+.wide-container {
+    width: 90%;
+    max-width: 1100px;
+    margin: 50px auto;
+    padding: 35px;
+}
+
+h1 {
+    margin-bottom: 10px;
+}
+
+.menu {
+    margin-top: 25px;
+}
+
+.btn {
+    display: inline-block;
+    margin: 8px;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 8px;
+    background: #4f46e5;
+    color: white;
+    text-decoration: none;
+    cursor: pointer;
+    font-size: 15px;
+}
+
+.btn:hover {
+    opacity: 0.85;
+}
+
+.btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+label {
+    margin-top: 15px;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+input,
+textarea {
+    padding: 11px;
+    border: 1px solid #ccc;
+    border-radius: 7px;
+    font-size: 15px;
+}
+
+textarea {
+    resize: vertical;
+    min-height: 70px;
+}
+
+form .btn {
+    margin-top: 25px;
+}
+
+.back-link {
+    display: block;
+    margin-top: 20px;
+    text-decoration: none;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 25px;
+}
+
+th,
+td {
+    padding: 12px;
+    border: 1px solid #ddd;
+    text-align: center;
+}
+
+th {
+    background: #f1f1f1;
+}
+select {
+    padding: 11px;
+    border: 1px solid #ccc;
+    border-radius: 7px;
+    font-size: 15px;
+    background: white;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.info-text {
+    margin: 8px 0;
+    font-size: 14px;
+    color: #555;
+}
+
+hr {
+    margin: 25px 0;
+    border: none;
+    border-top: 1px solid #ddd;
+}
+
+.save-btn {
+    width: 100%;
+    margin-top: 25px;
+}
+
+form .btn {
+    margin-left: 0;
+    margin-right: 0;
+}
+/* =====================================================
+   MONTHLY REPORT PAGE
+   ===================================================== */
+
+.monthly-report-page {
+    width: 94%;
+    max-width: 900px;
+    margin: 30px auto;
+    box-sizing: border-box;
+}
+
+
+/* HEADER */
+
+.monthly-report-header {
+    text-align: center;
+    margin-bottom: 25px;
+}
+
+.monthly-report-header h1 {
+    margin-bottom: 8px;
+}
+
+.monthly-report-header p {
+    margin: 0;
+    color: #666;
+}
+
+
+/* SELECTION BOX */
+
+.month-selector-box {
+    width: 100%;
+    background: white;
+    padding: 20px;
+    box-sizing: border-box;
+    border-radius: 10px;
+    margin-bottom: 25px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+}
+
+.month-selector-box form {
+    display: grid;
+    grid-template-columns: 1fr 1fr auto;
+    gap: 15px;
+    align-items: end;
+}
+
+
+.report-input label {
+    display: block;
+    margin-bottom: 7px;
+}
+
+
+.report-input select,
+.report-input input {
+    width: 100%;
+    box-sizing: border-box;
+}
+
+
+/* CUSTOMER REPORT */
+
+.customer-report-card {
+    width: 100%;
+    background: white;
+    padding: 25px;
+    box-sizing: border-box;
+    border-radius: 12px;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.10);
+}
+
+
+/* CUSTOMER TITLE */
+
+.customer-report-title {
+    padding-bottom: 15px;
+    border-bottom: 1px solid #ddd;
+}
+
+.customer-report-title h2 {
+    margin: 0;
+    font-size: 24px;
+}
+
+.customer-report-title p {
+    margin: 6px 0 0;
+    color: #666;
+}
+
+
+/* BASIC INFO */
+
+.customer-basic-info {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    gap: 15px;
+    padding: 20px 0;
+}
+
+
+.info-item {
+    background: #f7f7f7;
+    padding: 12px;
+    border-radius: 7px;
+}
+
+
+.info-item span {
+    display: block;
+    color: #666;
+    font-size: 13px;
+    margin-bottom: 5px;
+}
+
+
+.info-item strong {
+    display: block;
+    font-size: 14px;
+}
+
+
+/* MILK SUMMARY */
+
+.milk-summary {
+    border-top: 1px solid #ddd;
+    padding-top: 18px;
+}
+
+
+.milk-summary h3 {
+    margin-top: 0;
+}
+
+
+.milk-summary-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+}
+
+
+.summary-box {
+    background: #f7f7f7;
+    padding: 15px;
+    border-radius: 8px;
+}
+
+
+.summary-box span {
+    display: block;
+    color: #666;
+    font-size: 13px;
+    margin-bottom: 6px;
+}
+
+
+.summary-box strong {
+    font-size: 20px;
+}
+
+
+/* EXTRA */
+
+.extra-liters-row {
+    margin-top: 12px;
+    padding: 12px 15px;
+    background: #f7f7f7;
+    border-radius: 8px;
+
+    display: flex;
+    justify-content: space-between;
+}
+
+
+/* NO MILK */
+
+.no-milk-details {
+    margin-top: 20px;
+    padding-top: 18px;
+    border-top: 1px solid #ddd;
+}
+
+
+.no-milk-details h3 {
+    margin-top: 0;
+}
+
+
+.no-milk-item {
+    display: grid;
+    grid-template-columns: 150px 1fr;
+    gap: 15px;
+    padding: 9px 0;
+    border-bottom: 1px solid #eee;
+}
+
+
+/* TOTAL */
+
+.total-amount-row {
+    margin-top: 20px;
+    padding-top: 18px;
+    border-top: 2px solid #333;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+
+.total-amount-row span {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+
+.total-amount-row strong {
+    font-size: 26px;
+}
+
+
+/* NO REPORT */
+
+.no-report-message {
+    width: 100%;
+    background: white;
+    padding: 25px;
+    box-sizing: border-box;
+    border-radius: 10px;
+    text-align: center;
+}
+
+
+/* BACK */
+
+.monthly-report-back {
+    text-align: center;
+    margin: 25px 0 40px;
+}
+
+
+/* MOBILE */
+
+@media (max-width: 700px) {
+
+    .monthly-report-page {
+        width: 94%;
+        margin: 20px auto;
+    }
+
+    .month-selector-box form {
+        grid-template-columns: 1fr;
+    }
+
+    .customer-basic-info {
+        grid-template-columns: 1fr;
+    }
+
+    .milk-summary-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .no-milk-item {
+        grid-template-columns: 1fr;
+        gap: 3px;
+    }
+
+}
+/* TOTAL LITERS */
+
+.total-liters-row {
+    margin-top: 12px;
+    padding: 14px 15px;
+
+    background: #f7f7f7;
+
+    border-radius: 8px;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.total-liters-row span {
+    font-weight: bold;
+}
+
+.total-liters-row strong {
+    font-size: 20px;
+}
+/* =====================================================
+PREVIOUS MONTH BILLS PAGE
+===================================================== */
+
+.previous-bills-page {
+width: 94%;
+max-width: 850px;
+margin: 35px auto;
+box-sizing: border-box;
+}
+
+/* HEADER */
+
+.previous-bills-header {
+text-align: center;
+margin-bottom: 25px;
+}
+
+.previous-bills-header h1 {
+margin-bottom: 8px;
+}
+
+.previous-bills-header p {
+margin: 0;
+color: #666;
+}
+
+/* BILLS CONTAINER */
+
+.previous-bills-container {
+display: flex;
+flex-direction: column;
+gap: 25px;
+}
+
+/* BILL */
+
+.previous-bill-card {
+background: white;
+padding: 30px;
+border-radius: 12px;
+box-shadow: 0 4px 14px rgba(0, 0, 0, 0.10);
+box-sizing: border-box;
+}
+
+/* CUSTOMER */
+
+.bill-customer {
+padding-bottom: 18px;
+border-bottom: 1px solid #ddd;
+}
+
+.bill-customer h2 {
+margin: 0;
+font-size: 24px;
+}
+
+.bill-customer p {
+margin: 7px 0 0;
+color: #666;
+}
+
+/* BILL SECTIONS */
+
+.bill-section {
+padding: 15px 0;
+border-bottom: 1px solid #eee;
+}
+
+.bill-section p {
+margin: 7px 0;
+line-height: 1.5;
+}
+
+.bill-section strong {
+font-weight: bold;
+}
+
+/* NO-MILK DETAILS */
+
+.no-milk-section {
+padding-bottom: 18px;
+}
+
+.no-milk-section h3 {
+margin: 0 0 12px;
+font-size: 18px;
+}
+
+.no-milk-list {
+border-top: 1px solid #ddd;
+}
+
+.no-milk-row {
+display: grid;
+grid-template-columns: 150px 1fr;
+gap: 15px;
+padding: 9px 0;
+border-bottom: 1px solid #eee;
+}
+
+.no-milk-row span:first-child {
+color: #555;
+}
+
+.no-milk-row span:last-child {
+color: #333;
+}
+
+/* TOTAL */
+
+.bill-total {
+margin-top: 20px;
+padding-top: 20px;
+
+
+border-top: 2px solid #333;
+
+display: flex;
+justify-content: space-between;
+align-items: center;
+
+
+}
+
+.bill-total span {
+font-size: 19px;
+font-weight: bold;
+}
+
+.bill-total strong {
+font-size: 27px;
+}
+
+/* NO BILLS */
+
+.no-bills-message {
+background: white;
+padding: 35px 25px;
+border-radius: 12px;
+text-align: center;
+
+box-shadow: 0 4px 14px rgba(0, 0, 0, 0.10);
+
+}
+
+.no-bills-message h2 {
+margin-top: 0;
+}
+
+.no-bills-message p {
+color: #666;
+}
+
+/* BACK */
+
+.previous-bills-back {
+text-align: center;
+margin: 25px 0 40px;
+}
+
+/* MOBILE */
+
+@media (max-width: 700px) {
+
+
+.previous-bills-page {
+    width: 94%;
+    margin: 20px auto;
+}
+
+.previous-bill-card {
+    padding: 22px;
+}
+
+.bill-customer h2 {
+    font-size: 21px;
+}
+
+.no-milk-row {
+    grid-template-columns: 1fr;
+    gap: 4px;
+}
+
+.bill-total {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+}
+
+}
+
+/* =====================================================
+   PENDING PREVIOUS MONTH BILLS
+   ===================================================== */
+
+.pending-bills-container {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+
+.pending-bill-row {
+    background: white;
+    padding: 20px;
+    border-radius: 12px;
+
+    box-shadow:
+        0 4px 14px rgba(0, 0, 0, 0.10);
+
+    display: grid;
+
+    grid-template-columns:
+        1fr
+        auto
+        auto;
+
+    gap: 25px;
+
+    align-items: center;
+
+    box-sizing: border-box;
+}
+
+
+.pending-customer-info h2 {
+    margin: 0;
+    font-size: 20px;
+}
+
+
+.pending-customer-info p {
+    margin: 5px 0 0;
+    color: #666;
+}
+
+
+.pending-bill-amount {
+    text-align: right;
+}
+
+
+.pending-bill-amount span {
+    display: block;
+    color: #666;
+    font-size: 13px;
+    margin-bottom: 4px;
+}
+
+
+.pending-bill-amount strong {
+    font-size: 20px;
+}
+
+
+.pending-bill-action .btn {
+    margin: 0;
+}
+
+
+/* =====================================================
+   PREVIOUS BILL DETAIL PAGE
+   ===================================================== */
+
+.bill-detail-page {
+    width: 94%;
+    max-width: 750px;
+    margin: 35px auto;
+    box-sizing: border-box;
+}
+
+
+.bill-detail-header {
+    text-align: center;
+    margin-bottom: 25px;
+}
+
+
+.bill-detail-header h1 {
+    margin-bottom: 8px;
+}
+
+
+.bill-detail-header p {
+    margin: 0;
+    color: #666;
+}
+
+
+/* BILL DOCUMENT */
+
+.bill-document {
+    background: white;
+
+    padding: 35px;
+
+    border-radius: 12px;
+
+    box-shadow:
+        0 4px 14px rgba(0, 0, 0, 0.10);
+
+    box-sizing: border-box;
+}
+
+
+/* CUSTOMER */
+
+.bill-document-customer {
+    text-align: center;
+
+    padding-bottom: 20px;
+
+    border-bottom: 2px solid #333;
+}
+
+
+.bill-document-customer h2 {
+    margin: 0;
+
+    font-size: 27px;
+}
+
+
+.bill-document-customer p {
+    margin: 7px 0 0;
+
+    color: #666;
+}
+
+
+/* SECTIONS */
+
+.document-section {
+    padding: 20px 0;
+
+    border-bottom: 1px solid #ddd;
+}
+
+
+.document-section h3 {
+    margin-top: 0;
+    margin-bottom: 15px;
+}
+
+
+/* ROW */
+
+.document-row {
+    display: flex;
+
+    justify-content: space-between;
+
+    gap: 20px;
+
+    padding: 8px 0;
+}
+
+
+.document-row span {
+    color: #555;
+}
+
+
+.document-row strong {
+    text-align: right;
+}
+
+
+/* NO MILK */
+
+.no-milk-detail-row {
+    display: grid;
+
+    grid-template-columns:
+        160px
+        1fr;
+
+    gap: 15px;
+
+    padding: 9px 0;
+
+    border-bottom: 1px solid #eee;
+}
+
+
+.no-milk-detail-row span:first-child {
+    color: #555;
+}
+
+
+/* TOTAL */
+
+.document-total {
+    margin-top: 25px;
+
+    padding-top: 20px;
+
+    border-top: 2px solid #333;
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+}
+
+
+.document-total span {
+    font-size: 20px;
+
+    font-weight: bold;
+}
+
+
+.document-total strong {
+    font-size: 28px;
+}
+
+
+/* PAID & CLEAR */
+
+.paid-clear-btn {
+    width: 100%;
+
+    margin-top: 25px;
+
+    padding: 14px;
+
+    border: none;
+
+    border-radius: 8px;
+
+    background: #16a34a;
+
+    color: white;
+
+    font-size: 16px;
+
+    font-weight: bold;
+
+    cursor: pointer;
+}
+
+
+.paid-clear-btn:hover {
+    opacity: 0.88;
+}
+
+
+/* BACK */
+
+.bill-detail-back {
+    text-align: center;
+
+    margin: 25px 0 40px;
+}
+
+
+/* MOBILE */
+
+@media (max-width: 700px) {
+
+    .pending-bill-row {
+        grid-template-columns: 1fr;
+
+        gap: 15px;
+    }
+
+
+    .pending-bill-amount {
+        text-align: left;
+    }
+
+
+    .pending-bill-action .btn {
+        width: 100%;
+
+        text-align: center;
+
+        box-sizing: border-box;
+    }
+
+
+    .bill-document {
+        padding: 22px;
+    }
+
+
+    .document-row {
+        flex-direction: column;
+
+        gap: 4px;
+    }
+
+
+    .document-row strong {
+        text-align: left;
+    }
+
+
+    .no-milk-detail-row {
+        grid-template-columns: 1fr;
+
+        gap: 4px;
+    }
+
+
+    .document-total {
+        flex-direction: column;
+
+        align-items: flex-start;
+
+        gap: 8px;
+    }
+
+}
+

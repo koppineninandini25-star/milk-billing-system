@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Daily Milk Entry</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+
+</head>
+
+
+<body>
+
+<div class="form-container">
+
+    <h1>🥛 Daily Milk Entry</h1>
+
+
+    <!-- ================================================= -->
+    <!-- CUSTOMER AND DATE SELECTION -->
+    <!-- ================================================= -->
+
+    <form method="GET"
+          action="{{ url_for('daily_entry') }}">
+
+        <label for="customer_id">
+            Customer
+        </label>
+
+        <select id="customer_id"
+                name="customer_id"
+                required>
+
+            <option value="">
+                Select Customer
+            </option>
+
+            {% for customer in customers %}
+
+                <option value="{{ customer.id }}"
+                    {% if selected_customer_id|int == customer.id %}
+                        selected
+                    {% endif %}>
+
+                    {{ customer.name }}
+
+                </option>
+
+            {% endfor %}
+
+        </select>
+
+
+        <label for="date">
+            Date
+        </label>
+
+        <input
+            type="date"
+            id="date"
+            name="date"
+            value="{{ selected_date }}"
+            required
+        >
+
+
+        <button
+            type="submit"
+            class="btn"
+        >
+            Load Customer
+        </button>
+
+    </form>
+
+
+    {% if selected_customer %}
+
+        <hr>
+
+
+        <!-- ================================================= -->
+        <!-- DAILY ENTRY FORM -->
+        <!-- ================================================= -->
+
+        <h2>
+            {{ selected_customer.name }}
+        </h2>
+
+
+        <p class="info-text">
+
+            Default daily quantity:
+
+            <strong>
+                {{ selected_customer.default_qty }} L
+            </strong>
+
+        </p>
+
+
+        <p class="info-text">
+
+            Rate:
+
+            <strong>
+                ₹{{ selected_customer.rate }} / L
+            </strong>
+
+        </p>
+
+
+        <form
+            method="POST"
+            action="{{ url_for('daily_entry') }}"
+        >
+
+
+            <!-- CUSTOMER ID -->
+
+            <input
+                type="hidden"
+                name="customer_id"
+                value="{{ selected_customer.id }}"
+            >
+
+
+            <!-- DATE -->
+
+            <input
+                type="hidden"
+                name="date"
+                value="{{ selected_date }}"
+            >
+
+
+            <!-- ================================================= -->
+            <!-- ACTUAL QUANTITY -->
+            <!-- ================================================= -->
+
+            <label for="qty">
+
+                Actual Milk Quantity (Liters)
+
+            </label>
+
+
+            <input
+                type="number"
+                id="qty"
+                name="qty"
+                step="0.5"
+                min="0"
+                value="{% if existing_entry %}{{ existing_entry.qty }}{% else %}{{ selected_customer.default_qty }}{% endif %}"
+                required
+            >
+
+
+            <!-- ================================================= -->
+            <!-- REASON -->
+            <!-- ================================================= -->
+
+            <label for="reason">
+
+                Reason for No Milk
+
+            </label>
+
+
+            <textarea
+                id="reason"
+                name="reason"
+                placeholder="Enter the reason only when quantity is 0"
+            >{% if existing_entry %}{{ existing_entry.reason }}{% endif %}</textarea>
+
+
+            <!-- ================================================= -->
+            <!-- SAVE BUTTON -->
+            <!-- ================================================= -->
+
+            <button
+                type="submit"
+                class="btn save-btn"
+            >
+                Save Today's Entry
+            </button>
+
+        </form>
+
+    {% endif %}
+
+
+    <!-- ================================================= -->
+    <!-- BACK TO HOME -->
+    <!-- ================================================= -->
+
+    <a
+        href="{{ url_for('home') }}"
+        class="back-link"
+    >
+        ← Back to Home
+    </a>
+
+</div>
+
+</body>
+
+</html>

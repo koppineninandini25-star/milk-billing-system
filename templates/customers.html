@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Customers</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+
+    <style>
+
+        /* Customer page white box */
+
+        .customers-container {
+            width: 92%;
+            max-width: 1100px;
+            margin: 50px auto;
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-sizing: border-box;
+        }
+
+
+        /* Heading */
+
+        .customers-container h1 {
+            margin-top: 0;
+            margin-bottom: 25px;
+        }
+
+
+        /* Table */
+
+        .customers-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+
+        /* Table header */
+
+        .customers-table th {
+            background: #f2f2f2;
+            color: #333;
+            padding: 12px 10px;
+            text-align: left;
+            font-weight: bold;
+            border-bottom: 1px solid #ddd;
+        }
+
+
+        /* Table data */
+
+        .customers-table td {
+            padding: 12px 10px;
+            color: #333;
+            border-bottom: 1px solid #ddd;
+        }
+
+
+        /* Delete symbol */
+
+        .delete-button {
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 15px;
+            padding: 0;
+            margin-left: 6px;
+        }
+
+
+        .delete-button:hover {
+            transform: scale(1.15);
+        }
+
+
+        /* Back link */
+
+        .customers-back {
+            display: inline-block;
+            margin-top: 25px;
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+    <div class="customers-container">
+
+        <h1>👥 Customers</h1>
+
+
+        {% if customers %}
+
+        <table class="customers-table">
+
+            <thead>
+
+                <tr>
+
+                    <th>ID</th>
+
+                    <th>Name</th>
+
+                    <th>Details</th>
+
+                    <th>Daily Qty</th>
+
+                    <th>Rate/Liter</th>
+
+                    <th>Start Date</th>
+
+                </tr>
+
+            </thead>
+
+
+            <tbody>
+
+                {% for customer in customers %}
+
+                <tr>
+
+                    <td>
+                        {{ customer.id }}
+                    </td>
+
+
+                    <td>
+
+                        {{ customer.name }}
+
+                        <form
+                            method="POST"
+                            action="{{ url_for('delete_customer', customer_id=customer.id) }}"
+                            onsubmit="return confirmDelete('{{ customer.name }}');"
+                            style="display:inline;"
+                        >
+
+                            <button
+                                type="submit"
+                                class="delete-button"
+                                title="Delete Customer"
+                            >
+                                🗑️
+                            </button>
+
+                        </form>
+
+                    </td>
+
+
+                    <td>
+                        {{ customer.details }}
+                    </td>
+
+
+                    <td>
+                        {{ customer.default_qty }} L
+                    </td>
+
+
+                    <td>
+                        ₹{{ customer.rate }}
+                    </td>
+
+
+                    <td>
+                        {{ customer.start_date }}
+                    </td>
+
+                </tr>
+
+                {% endfor %}
+
+            </tbody>
+
+        </table>
+
+
+        {% else %}
+
+        <p>
+            No customers added yet.
+        </p>
+
+        {% endif %}
+
+
+        <a
+            href="{{ url_for('home') }}"
+            class="back-link customers-back"
+        >
+            ← Back to Home
+        </a>
+
+    </div>
+
+
+    <script>
+
+        function confirmDelete(customerName) {
+
+            return confirm(
+                "Are you sure you want to delete " +
+                customerName +
+                "?\n\n" +
+                "This will also delete the customer's " +
+                "daily entries and monthly bill data."
+            );
+
+        }
+
+    </script>
+
+</body>
+
+</html>

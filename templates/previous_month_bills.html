@@ -1,0 +1,132 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Previous Month Bills</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+
+</head>
+
+<body>
+
+<div class="previous-bills-page">
+
+    <!-- HEADER -->
+
+    <div class="previous-bills-header">
+
+        <h1>📋 Previous Month Bills</h1>
+
+        <p>
+            Pending bills for {{ selected_month }}
+        </p>
+
+    </div>
+
+
+    <!-- PENDING CUSTOMERS -->
+
+    {% if bills %}
+
+        <div class="pending-bills-container">
+
+            {% for bill in bills %}
+
+                <div class="pending-bill-row">
+
+                    <div class="pending-customer-info">
+
+                        <h2>
+                            {{ bill.customer_name }}
+                        </h2>
+
+                        {% if bill.details %}
+
+                            <p>
+                                {{ bill.details }}
+                            </p>
+
+                        {% endif %}
+
+                    </div>
+
+
+                    <div class="pending-bill-amount">
+
+                        <span>
+                            Amount
+                        </span>
+
+                        <strong>
+                            ₹{{ bill.total_amount }}
+                        </strong>
+
+                    </div>
+
+
+                    <div class="pending-bill-action">
+
+                        <a
+                            href="{{ url_for(
+                                'previous_month_bill',
+                                customer_id=bill.customer_id
+                            ) }}"
+                            class="btn"
+                        >
+                            View Bill
+                        </a>
+
+                    </div>
+
+                </div>
+
+            {% endfor %}
+
+        </div>
+
+    {% else %}
+
+        <!-- NO PENDING BILLS -->
+
+        <div class="no-bills-message">
+
+            <h2>
+                ✅ No Pending Bills
+            </h2>
+
+            <p>
+                All previous month bills have been cleared.
+            </p>
+
+        </div>
+
+    {% endif %}
+
+
+    <!-- BACK -->
+
+    <div class="previous-bills-back">
+
+        <a
+            href="{{ url_for('home') }}"
+            class="back-link"
+        >
+            ← Back to Home
+        </a>
+
+    </div>
+
+</div>
+
+</body>
+
+</html>

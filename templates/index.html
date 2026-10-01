@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+<meta charset="UTF-8">
+
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0">
+
+<title>Milk Billing System</title>
+
+<link rel="stylesheet"
+      href="{{ url_for('static', filename='style.css') }}">
+```
+
+</head>
+
+<body>
+
+```
+<div class="container">
+
+    <h1>🥛 Milk Billing System</h1>
+
+    <p>
+        Manage customers and monthly milk billing easily.
+    </p>
+
+    <div class="menu">
+
+        <a href="{{ url_for('add_customer') }}"
+           class="btn">
+            Add Customer
+        </a>
+
+        <a href="{{ url_for('customers') }}"
+           class="btn">
+            View Customers
+        </a>
+
+        <a href="{{ url_for('daily_entry') }}"
+           class="btn">
+            Daily Entry
+        </a>
+
+        <a href="{{ url_for('monthly_report') }}"
+           class="btn">
+            Monthly Report
+        </a>
+
+        <a href="{{ url_for('previous_month_bills') }}"
+           class="btn">
+            Previous Month Bills
+        </a>
+
+    </div>
+
+</div>
+</body>
+
+</html>

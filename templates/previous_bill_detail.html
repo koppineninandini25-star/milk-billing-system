@@ -1,0 +1,265 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>
+        {{ bill.customer_name }} - Previous Month Bill
+    </title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+
+</head>
+
+<body>
+
+<div class="bill-detail-page">
+
+    <!-- HEADER -->
+
+    <div class="bill-detail-header">
+
+        <h1>🥛 Milk Bill</h1>
+
+        <p>
+            Previous Month
+        </p>
+
+    </div>
+
+
+    <!-- BILL DOCUMENT -->
+
+    <div class="bill-document">
+
+        <!-- CUSTOMER -->
+
+        <div class="bill-document-customer">
+
+            <h2>
+                {{ bill.customer_name }}
+            </h2>
+
+            {% if bill.details %}
+
+                <p>
+                    {{ bill.details }}
+                </p>
+
+            {% endif %}
+
+        </div>
+
+
+        <!-- BILLING PERIOD -->
+
+        <div class="document-section">
+
+            <div class="document-row">
+
+                <span>
+                    Billing Period
+                </span>
+
+                <strong>
+                    {{ bill.billing_start }}
+                    to
+                    {{ bill.calculation_end }}
+                </strong>
+
+            </div>
+
+        </div>
+
+
+        <!-- BASIC DETAILS -->
+
+        <div class="document-section">
+
+            <div class="document-row">
+
+                <span>
+                    Default Quantity
+                </span>
+
+                <strong>
+                    {{ bill.default_qty }} L/day
+                </strong>
+
+            </div>
+
+
+            <div class="document-row">
+
+                <span>
+                    Rate
+                </span>
+
+                <strong>
+                    ₹{{ bill.rate }} / L
+                </strong>
+
+            </div>
+
+        </div>
+
+
+        <!-- MILK DETAILS -->
+
+        <div class="document-section">
+
+            <h3>
+                Milk Details
+            </h3>
+
+
+            <div class="document-row">
+
+                <span>
+                    Days Taking Milk
+                </span>
+
+                <strong>
+                    {{ bill.total_days_taking_milk }}
+                </strong>
+
+            </div>
+
+
+            <div class="document-row">
+
+                <span>
+                    No-Milk Days
+                </span>
+
+                <strong>
+                    {{ bill.no_milk_days }}
+                </strong>
+
+            </div>
+
+
+            <div class="document-row">
+
+                <span>
+                    Extra Liters
+                </span>
+
+                <strong>
+                    {{ bill.extra_liters }} L
+                </strong>
+
+            </div>
+
+
+            <div class="document-row">
+
+                <span>
+                    Total Liters
+                </span>
+
+                <strong>
+                    {{ bill.total_liters }} L
+                </strong>
+
+            </div>
+
+        </div>
+
+
+        <!-- NO-MILK DETAILS -->
+
+        {% if bill.no_milk_days > 0 %}
+
+            <div class="document-section">
+
+                <h3>
+                    No-Milk Details
+                </h3>
+
+
+                {% for item in bill.no_milk_details %}
+
+                    <div class="no-milk-detail-row">
+
+                        <span>
+                            {{ item.date }}
+                        </span>
+
+                        <span>
+                            {{ item.reason }}
+                        </span>
+
+                    </div>
+
+                {% endfor %}
+
+            </div>
+
+        {% endif %}
+
+
+        <!-- TOTAL -->
+
+        <div class="document-total">
+
+            <span>
+                Total Amount
+            </span>
+
+            <strong>
+                ₹{{ bill.total_amount }}
+            </strong>
+
+        </div>
+
+
+        <!-- PAID AND CLEAR -->
+
+        <form
+            method="POST"
+            action="{{ url_for(
+                'clear_previous_month_bill',
+                customer_id=bill.customer_id
+            ) }}"
+            onsubmit='return confirm("Are you sure the customer has paid? This will clear only this customer\'s previous month bill.");'
+        >
+
+            <button
+                type="submit"
+                class="paid-clear-btn"
+            >
+                ✅ Paid & Clear Bill
+            </button>
+
+        </form>
+
+
+    </div>
+
+
+    <!-- BACK -->
+
+    <div class="bill-detail-back">
+
+        <a
+            href="{{ url_for('previous_month_bills') }}"
+            class="back-link"
+        >
+            ← Back to Previous Month Bills
+        </a>
+
+    </div>
+
+</div>
+
+</body>
+
+</html>
