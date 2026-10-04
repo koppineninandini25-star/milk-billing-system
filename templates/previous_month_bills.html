@@ -1,47 +1,110 @@
-
 <!DOCTYPE html>
+
 <html lang="en">
 
 <head>
 
-    <meta charset="UTF-8">
+<meta charset="UTF-8">
 
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1.0">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0">
 
-    <title>Previous Month Bills</title>
+<title>Previous Month Bills | KsheeraDhara</title>
 
-    <link rel="stylesheet"
-          href="{{ url_for('static', filename='style.css') }}">
+<link rel="stylesheet"
+      href="{{ url_for('static', filename='style.css') }}">
 
 </head>
 
-<body>
+<body class="previous-bills-page">
 
-<div class="previous-bills-page">
+<!-- =====================================================
+     CONSTANT KsheeraDhara HEADER
+     ===================================================== -->
 
-    <!-- HEADER -->
+<header class="home-navbar">
 
-    <div class="previous-bills-header">
+    <a href="{{ url_for('home') }}" class="navbar-logo">
 
-        <h1>📋 Previous Month Bills</h1>
+        <img
+            src="{{ url_for('static', filename='images/ksheeradhara-logo.png') }}"
+            alt="KsheeraDhara Logo"
+        >
+
+    </a>
+
+
+    <nav class="nav-links">
+
+        <a
+            href="{{ url_for('home') }}"
+            class="nav-link"
+        >
+            Home
+        </a>
+
+        <a
+            href="{{ url_for('customers') }}"
+            class="nav-link"
+        >
+            Customers
+        </a>
+
+        <a
+            href="{{ url_for('daily_entry') }}"
+            class="nav-link"
+        >
+            Daily Entry
+        </a>
+
+        <a
+            href="{{ url_for('monthly_report') }}"
+            class="nav-link"
+        >
+            Monthly Report
+        </a>
+
+    </nav>
+
+</header>
+
+
+<!-- =====================================================
+     PREVIOUS BILLS MAIN CONTENT
+     ===================================================== -->
+
+<main class="previous-bills-container">
+
+
+    <!-- PAGE HEADING -->
+
+    <section class="previous-bills-header">
+
+        <h1>
+            Previous Month Bills
+        </h1>
 
         <p>
             Pending bills for {{ selected_month }}
         </p>
 
-    </div>
+    </section>
 
 
-    <!-- PENDING CUSTOMERS -->
+    <!-- =================================================
+         PENDING CUSTOMERS
+         ================================================= -->
 
     {% if bills %}
 
-        <div class="pending-bills-container">
+        <section class="pending-bills-container">
 
             {% for bill in bills %}
 
                 <div class="pending-bill-row">
+
+
+                    <!-- CUSTOMER INFORMATION -->
 
                     <div class="pending-customer-info">
 
@@ -60,6 +123,8 @@
                     </div>
 
 
+                    <!-- BILL AMOUNT -->
+
                     <div class="pending-bill-amount">
 
                         <span>
@@ -72,6 +137,8 @@
 
                     </div>
 
+
+                    <!-- VIEW BILL -->
 
                     <div class="pending-bill-action">
 
@@ -87,32 +154,38 @@
 
                     </div>
 
+
                 </div>
 
             {% endfor %}
 
-        </div>
+        </section>
+
 
     {% else %}
 
-        <!-- NO PENDING BILLS -->
+        <!-- =================================================
+             NO PENDING BILLS
+             ================================================= -->
 
-        <div class="no-bills-message">
+        <section class="no-bills-message">
 
             <h2>
-                ✅ No Pending Bills
+                No Pending Bills
             </h2>
 
             <p>
                 All previous month bills have been cleared.
             </p>
 
-        </div>
+        </section>
 
     {% endif %}
 
 
-    <!-- BACK -->
+    <!-- =================================================
+         BACK TO HOME
+         ================================================= -->
 
     <div class="previous-bills-back">
 
@@ -125,7 +198,8 @@
 
     </div>
 
-</div>
+
+</main>
 
 </body>
 

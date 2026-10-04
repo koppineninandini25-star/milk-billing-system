@@ -8,7 +8,7 @@
     <meta name="viewport"
           content="width=device-width, initial-scale=1.0">
 
-    <title>Add Customer</title>
+    <title>Add Customer | KsheeraDhara</title>
 
     <link rel="stylesheet"
           href="{{ url_for('static', filename='style.css') }}">
@@ -16,125 +16,414 @@
 </head>
 
 
-<body>
-
-    <div class="form-container">
-
-        <h1>➕ Add Customer</h1>
+<body class="add-customer-page">
 
 
-        <form method="POST">
+    <!-- ================= NAVBAR ================= -->
 
-            <!-- Customer Name -->
+    <nav class="home-navbar">
 
-            <label for="name">
-                Customer Name
-            </label>
+        <div class="navbar-logo">
 
-            <input
-                type="text"
-                id="name"
-                name="name"
-                placeholder="Enter customer name"
-                required
+            <a href="{{ url_for('home') }}">
+
+                <img
+                    src="{{ url_for('static', filename='images/ksheeradhara-logo.png') }}"
+                    alt="KsheeraDhara Logo"
+                >
+
+            </a>
+
+        </div>
+
+
+        <div class="nav-links">
+
+            <a href="{{ url_for('home') }}">
+                Home
+            </a>
+
+            <a href="{{ url_for('customers') }}"
+               class="active">
+                Customers
+            </a>
+
+            <a href="{{ url_for('daily_entry') }}">
+                Daily Entry
+            </a>
+
+            <a href="{{ url_for('monthly_report') }}">
+                Monthly Report
+            </a>
+
+        </div>
+
+    </nav>
+
+
+
+    <!-- ================= SUCCESS TOAST ================= -->
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+
+        {% if messages %}
+
+            {% for category, message in messages %}
+
+            <div class="add-customer-toast {{ category }}"
+                 id="addCustomerToast">
+
+                <span class="toast-icon">
+                    ✓
+                </span>
+
+                <span class="toast-message">
+                    {{ message }}
+                </span>
+
+                <button
+                    type="button"
+                    class="toast-close"
+                    onclick="closeAddCustomerToast()"
+                    aria-label="Close"
+                >
+                    ×
+                </button>
+
+            </div>
+
+            {% endfor %}
+
+        {% endif %}
+
+    {% endwith %}
+
+
+
+    <!-- ================= MAIN ================= -->
+
+    <main class="add-customer-main">
+
+
+        <!-- PAGE HEADING -->
+
+        <div class="add-customer-heading">
+
+            <p class="section-label">
+                CUSTOMER MANAGEMENT
+            </p>
+
+            <h1>
+                Add New Customer
+            </h1>
+
+            <p class="heading-description">
+                Add a customer and set their basic milk billing details.
+            </p>
+
+        </div>
+
+
+
+        <!-- ================= FORM CARD ================= -->
+
+        <div class="add-customer-card">
+
+
+            <!-- FORM HEADER -->
+
+            <div class="form-card-header">
+
+                <div class="form-icon">
+                    +
+                </div>
+
+                <div>
+
+                    <h2>
+                        Customer Details
+                    </h2>
+
+                    <p>
+                        Enter the customer's information below.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- FORM -->
+
+            <form method="POST"
+                  class="customer-form">
+
+
+                <!-- CUSTOMER NAME -->
+
+                <div class="form-group">
+
+                    <label for="name">
+                        Customer Name
+                    </label>
+
+                    <input
+                        type="text"
+                        id="name"
+                        name="name"
+                        placeholder="Enter customer name"
+                        autocomplete="name"
+                        required
+                    >
+
+                </div>
+
+
+
+                <!-- CUSTOMER DETAILS -->
+
+                <div class="form-group">
+
+                    <label for="details">
+
+                        Address / Details
+
+                        <span class="optional">
+                            Optional
+                        </span>
+
+                    </label>
+
+                    <textarea
+                        id="details"
+                        name="details"
+                        placeholder="Enter address or other details"
+                        rows="3"
+                    ></textarea>
+
+                </div>
+
+
+
+                <!-- BILLING DETAILS -->
+
+                <div class="billing-section">
+
+                    <h3>
+                        Billing Details
+                    </h3>
+
+                    <p>
+                        Set the customer's usual daily quantity and rate.
+                    </p>
+
+
+                    <div class="form-row">
+
+
+                        <!-- DAILY QUANTITY -->
+
+                        <div class="form-group">
+
+                            <label for="default_qty">
+                                Daily Milk Quantity
+                            </label>
+
+                            <div class="input-with-unit">
+
+                                <input
+                                    type="number"
+                                    id="default_qty"
+                                    name="default_qty"
+                                    step="0.5"
+                                    min="0"
+                                    placeholder="Example: 1"
+                                    required
+                                >
+
+                                <span>
+                                    Liters
+                                </span>
+
+                            </div>
+
+                            <small>
+                                Usual quantity taken each day.
+                            </small>
+
+                        </div>
+
+
+
+                        <!-- RATE -->
+
+                        <div class="form-group">
+
+                            <label for="rate">
+                                Rate per Liter
+                            </label>
+
+                            <div class="input-with-unit">
+
+                                <span class="currency">
+                                    ₹
+                                </span>
+
+                                <input
+                                    type="number"
+                                    id="rate"
+                                    name="rate"
+                                    step="5"
+                                    min="0"
+                                    placeholder="Example: 60"
+                                    required
+                                >
+
+                            </div>
+
+                            <small>
+                                Rate changes in ₹5 increments.
+                            </small>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- START DATE -->
+
+                    <div class="form-group">
+
+                        <label for="start_date">
+                            Start Date
+                        </label>
+
+                        <input
+                            type="date"
+                            id="start_date"
+                            name="start_date"
+                            required
+                        >
+
+                        <small>
+                            Billing will begin from this date.
+                        </small>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- BUTTONS -->
+
+                <div class="form-actions">
+
+                    <a
+                        href="{{ url_for('customers') }}"
+                        class="cancel-btn"
+                    >
+                        Cancel
+                    </a>
+
+
+                    <button
+                        type="submit"
+                        class="add-customer-btn"
+                    >
+                        Add Customer
+                    </button>
+
+                </div>
+
+
+            </form>
+
+        </div>
+
+
+
+        <!-- BACK LINK -->
+
+        <div class="back-to-customers">
+
+            <a href="{{ url_for('customers') }}">
+                ← Back to Customers
+            </a>
+
+        </div>
+
+    </main>
+
+
+
+    <!-- ================= FOOTER ================= -->
+
+    <footer class="home-footer">
+
+        <div class="footer-content">
+
+            <img
+                src="{{ url_for('static', filename='images/ksheeradhara-logo.png') }}"
+                alt="KsheeraDhara Logo"
+                class="footer-logo"
             >
 
+            <p>
+                Simple milk billing, made effortless.
+            </p>
 
-            <!-- Customer Details -->
+            <span>
+                © 2026 KsheeraDhara. All rights reserved.
+            </span>
 
-            <label for="details">
-                Customer Details
-            </label>
+        </div>
 
-            <textarea
-                id="details"
-                name="details"
-                placeholder="Enter address or other details"
-            ></textarea>
-
-
-            <!-- Default Quantity -->
-
-            <label for="default_qty">
-                Default Daily Quantity (Liters)
-            </label>
-
-            <input
-                type="number"
-                id="default_qty"
-                name="default_qty"
-                step="0.5"
-                min="0"
-                placeholder="Example: 1"
-                required
-            >
+    </footer>
 
 
-            <!-- Rate -->
 
-            <label for="rate">
-                Rate per Liter (₹)
-            </label>
+    <!-- ================= TOAST JAVASCRIPT ================= -->
 
-            <input
-                type="number"
-                id="rate"
-                name="rate"
-                step="0.01"
-                min="0"
-                placeholder="Example: 60"
-                required
-            >
+    <script>
 
+        function closeAddCustomerToast() {
 
-            <!-- Start Date -->
+            const toast =
+                document.getElementById("addCustomerToast");
 
-            <label for="start_date">
-                Start Date
-            </label>
+            if (toast) {
 
-            <input
-                type="date"
-                id="start_date"
-                name="start_date"
-                required
-            >
+                toast.classList.add("hide");
+
+                setTimeout(function() {
+
+                    toast.remove();
+
+                }, 300);
+            }
+        }
 
 
-            <!-- Save -->
+        window.addEventListener("load", function() {
 
-            <button
-                type="submit"
-                class="btn"
-            >
-                Save Customer
-            </button>
+            const toast =
+                document.getElementById("addCustomerToast");
 
-        </form>
+            if (toast) {
 
+                setTimeout(function() {
 
-        <br>
+                    closeAddCustomerToast();
 
+                }, 10000);
+            }
+        });
 
-        <a
-            href="{{ url_for('home') }}"
-            class="back-link"
-        >
-            ← Back to Home
-        </a>
+    </script>
 
-
-        <br><br>
-
-
-        <a
-            href="{{ url_for('customers') }}"
-            class="back-link"
-        >
-            👥 View Customers
-        </a>
-
-    </div>
 
 </body>
 

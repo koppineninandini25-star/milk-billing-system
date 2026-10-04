@@ -8,207 +8,647 @@
     <meta name="viewport"
           content="width=device-width, initial-scale=1.0">
 
-    <title>Daily Milk Entry</title>
+    <title>Daily Milk Entry | KsheeraDhara</title>
 
     <link rel="stylesheet"
           href="{{ url_for('static', filename='style.css') }}">
 
 </head>
 
+<body class="daily-entry-page">
 
-<body>
+    <!-- =====================================================
+         NAVBAR
+         SAME NAVBAR AS HOME / CUSTOMERS / ADD CUSTOMER
+         ===================================================== -->
 
-<div class="form-container">
+    <nav class="home-navbar">
 
-    <h1>🥛 Daily Milk Entry</h1>
+        <div class="navbar-logo">
+
+            <a href="{{ url_for('home') }}">
+
+                <img
+                    src="{{ url_for('static', filename='images/ksheeradhara-logo.png') }}"
+                    alt="KsheeraDhara Logo"
+                >
+
+            </a>
+
+        </div>
 
 
-    <!-- ================================================= -->
-    <!-- CUSTOMER AND DATE SELECTION -->
-    <!-- ================================================= -->
+        <div class="nav-links">
 
-    <form method="GET"
-          action="{{ url_for('daily_entry') }}">
+            <a
+                href="{{ url_for('home') }}"
+                class="nav-link"
+            >
+                Home
+            </a>
 
-        <label for="customer_id">
-            Customer
-        </label>
 
-        <select id="customer_id"
-                name="customer_id"
-                required>
+            <a
+                href="{{ url_for('customers') }}"
+                class="nav-link"
+            >
+                Customers
+            </a>
 
-            <option value="">
-                Select Customer
-            </option>
 
-            {% for customer in customers %}
+            <a
+                href="{{ url_for('daily_entry') }}"
+                class="nav-link active"
+            >
+                Daily Entry
+            </a>
 
-                <option value="{{ customer.id }}"
-                    {% if selected_customer_id|int == customer.id %}
-                        selected
-                    {% endif %}>
 
-                    {{ customer.name }}
+            <a
+                href="{{ url_for('monthly_report') }}"
+                class="nav-link"
+            >
+                Monthly Report
+            </a>
 
-                </option>
+        </div>
+
+    </nav>
+
+
+
+    <!-- =====================================================
+         SUCCESS / ERROR TOAST
+         ===================================================== -->
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+
+        {% if messages %}
+
+            {% for category, message in messages %}
+
+                <div
+                    class="daily-entry-toast {{ category }}"
+                    id="dailyEntryToast"
+                >
+
+                    <span class="toast-icon">
+                        ✓
+                    </span>
+
+                    <span class="toast-message">
+                        {{ message }}
+                    </span>
+
+                    <button
+                        type="button"
+                        class="toast-close"
+                        onclick="closeDailyEntryToast()"
+                        aria-label="Close"
+                    >
+                        ×
+                    </button>
+
+                </div>
 
             {% endfor %}
 
-        </select>
+        {% endif %}
+
+    {% endwith %}
 
 
-        <label for="date">
-            Date
-        </label>
 
-        <input
-            type="date"
-            id="date"
-            name="date"
-            value="{{ selected_date }}"
-            required
-        >
+    <!-- =====================================================
+         MAIN CONTENT
+         ===================================================== -->
+
+    <main class="daily-entry-main">
 
 
-        <button
-            type="submit"
-            class="btn"
-        >
-            Load Customer
-        </button>
+        <!-- =================================================
+             PAGE HEADING
+             ================================================= -->
 
-    </form>
+        <div class="daily-entry-heading">
 
+            <p class="section-label">
+                DAILY MILK RECORD
+            </p>
 
-    {% if selected_customer %}
+            <h1>
+                Daily Milk Entry
+            </h1>
 
-        <hr>
+            <p class="heading-description">
+                Record the actual milk quantity for a customer on a specific day.
+            </p>
 
-
-        <!-- ================================================= -->
-        <!-- DAILY ENTRY FORM -->
-        <!-- ================================================= -->
-
-        <h2>
-            {{ selected_customer.name }}
-        </h2>
+        </div>
 
 
-        <p class="info-text">
 
-            Default daily quantity:
+        <!-- =================================================
+             CUSTOMER + DATE SELECTION CARD
+             ================================================= -->
 
-            <strong>
-                {{ selected_customer.default_qty }} L
-            </strong>
+        <div class="daily-entry-card selection-card">
 
-        </p>
+            <div class="daily-card-header">
+
+                <div class="daily-card-icon">
+                    📅
+                </div>
+
+                <div>
+
+                    <h2>
+                        Select Customer & Date
+                    </h2>
+
+                    <p>
+                        Choose a customer and the date you want to record.
+                    </p>
+
+                </div>
+
+            </div>
 
 
-        <p class="info-text">
 
-            Rate:
-
-            <strong>
-                ₹{{ selected_customer.rate }} / L
-            </strong>
-
-        </p>
-
-
-        <form
-            method="POST"
-            action="{{ url_for('daily_entry') }}"
-        >
-
-
-            <!-- CUSTOMER ID -->
-
-            <input
-                type="hidden"
-                name="customer_id"
-                value="{{ selected_customer.id }}"
+            <form
+                method="GET"
+                action="{{ url_for('daily_entry') }}"
+                class="daily-selection-form"
             >
 
+                <!-- CUSTOMER -->
 
-            <!-- DATE -->
+                <div class="daily-form-group">
 
-            <input
-                type="hidden"
-                name="date"
-                value="{{ selected_date }}"
+                    <label for="customer_id">
+                        Customer
+                    </label>
+
+                    <select
+                        id="customer_id"
+                        name="customer_id"
+                        required
+                    >
+
+                        <option value="">
+                            Select Customer
+                        </option>
+
+                        {% for customer in customers %}
+
+                            <option
+                                value="{{ customer.id }}"
+                                {% if selected_customer_id|int == customer.id|int %}
+                                    selected
+                                {% endif %}
+                            >
+
+                                {{ customer.name }}
+
+                            </option>
+
+                        {% endfor %}
+
+                    </select>
+
+                </div>
+
+
+
+                <!-- DATE -->
+
+                <div class="daily-form-group">
+
+                    <label for="date">
+                        Date
+                    </label>
+
+                    <input
+                        type="date"
+                        id="date"
+                        name="date"
+                        value="{{ selected_date }}"
+                        required
+                    >
+
+                </div>
+
+
+
+                <!-- LOAD BUTTON -->
+
+                <div class="daily-load-action">
+
+                    <button
+                        type="submit"
+                        class="daily-load-btn"
+                    >
+                        Load Customer
+                    </button>
+
+                </div>
+
+            </form>
+
+        </div>
+
+
+
+        <!-- =================================================
+             CUSTOMER ENTRY CARD
+             ================================================= -->
+
+        {% if selected_customer %}
+
+        <div class="daily-entry-card customer-entry-card">
+
+
+            <!-- CUSTOMER HEADER -->
+
+            <div class="selected-customer-header">
+
+                <div class="customer-avatar">
+
+                    {{ selected_customer.name[0]|upper }}
+
+                </div>
+
+                <div>
+
+                    <p class="selected-customer-label">
+                        CUSTOMER
+                    </p>
+
+                    <h2>
+                        {{ selected_customer.name }}
+                    </h2>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- CUSTOMER BILLING INFORMATION -->
+
+            <div class="daily-info-grid">
+
+                <div class="daily-info-box">
+
+                    <span class="daily-info-label">
+                        Usual Daily Quantity
+                    </span>
+
+                    <strong>
+                        {{ selected_customer.default_qty }} L
+                    </strong>
+
+                </div>
+
+
+                <div class="daily-info-box">
+
+                    <span class="daily-info-label">
+                        Rate per Liter
+                    </span>
+
+                    <strong>
+                        ₹{{ selected_customer.rate }}
+                    </strong>
+
+                </div>
+
+
+                <div class="daily-info-box">
+
+                    <span class="daily-info-label">
+                        Entry Date
+                    </span>
+
+                    <strong>
+                        {{ selected_date }}
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- =================================================
+                 DAILY ENTRY FORM
+                 ================================================= -->
+
+            <form
+                method="POST"
+                action="{{ url_for('daily_entry') }}"
+                class="daily-entry-form"
             >
 
+                <input
+                    type="hidden"
+                    name="customer_id"
+                    value="{{ selected_customer.id }}"
+                >
 
-            <!-- ================================================= -->
-            <!-- ACTUAL QUANTITY -->
-            <!-- ================================================= -->
-
-            <label for="qty">
-
-                Actual Milk Quantity (Liters)
-
-            </label>
-
-
-            <input
-                type="number"
-                id="qty"
-                name="qty"
-                step="0.5"
-                min="0"
-                value="{% if existing_entry %}{{ existing_entry.qty }}{% else %}{{ selected_customer.default_qty }}{% endif %}"
-                required
-            >
+                <input
+                    type="hidden"
+                    name="date"
+                    value="{{ selected_date }}"
+                >
 
 
-            <!-- ================================================= -->
-            <!-- REASON -->
-            <!-- ================================================= -->
 
-            <label for="reason">
+                <!-- =================================================
+                     QUANTITY
+                     ================================================= -->
 
-                Reason for No Milk
+                <div class="daily-quantity-section">
 
-            </label>
+                    <label for="qty">
+                        Today's Milk Quantity
+                    </label>
+
+                    <p class="field-description">
+                        The usual quantity is filled automatically.
+                        Change it only if today's quantity is different.
+                    </p>
+
+                    <div class="quantity-input-wrapper">
+
+                        <input
+                            type="number"
+                            id="qty"
+                            name="qty"
+                            step="0.5"
+                            min="0"
+                            value="{% if existing_entry %}{{ existing_entry.qty }}{% else %}{{ selected_customer.default_qty }}{% endif %}"
+                            required
+                        >
+
+                        <span>
+                            Liters
+                        </span>
+
+                    </div>
+
+                </div>
 
 
-            <textarea
-                id="reason"
-                name="reason"
-                placeholder="Enter the reason only when quantity is 0"
-            >{% if existing_entry %}{{ existing_entry.reason }}{% endif %}</textarea>
+
+                <!-- =================================================
+                     NO MILK REASON
+                     ================================================= -->
+
+                <div
+                    class="no-milk-reason-section"
+                    id="noMilkReasonSection"
+                >
+
+                    <label for="reason">
+                        Reason for No Milk
+                    </label>
+
+                    <p class="field-description">
+                        Please enter a reason when the quantity is 0.
+                    </p>
+
+                    <textarea
+                        id="reason"
+                        name="reason"
+                        placeholder="Example: Customer went out of town."
+                        rows="3"
+                    >{% if existing_entry %}{{ existing_entry.reason }}{% endif %}</textarea>
+
+                </div>
 
 
-            <!-- ================================================= -->
-            <!-- SAVE BUTTON -->
-            <!-- ================================================= -->
 
-            <button
-                type="submit"
-                class="btn save-btn"
-            >
-                Save Today's Entry
-            </button>
+                <!-- =================================================
+                     ACTION BUTTONS
+                     ================================================= -->
 
-        </form>
+                <div class="daily-entry-actions">
 
-    {% endif %}
+                    <a
+                        href="{{ url_for('daily_entry') }}"
+                        class="daily-reset-btn"
+                    >
+                        Clear
+                    </a>
+
+                    <button
+                        type="submit"
+                        class="daily-save-btn"
+                    >
+
+                        <span>
+                            ✓
+                        </span>
+
+                        Save Today's Entry
+
+                    </button>
+
+                </div>
+
+            </form>
+
+        </div>
+
+        {% endif %}
 
 
-    <!-- ================================================= -->
-    <!-- BACK TO HOME -->
-    <!-- ================================================= -->
 
-    <a
-        href="{{ url_for('home') }}"
-        class="back-link"
-    >
-        ← Back to Home
-    </a>
+        <!-- =================================================
+             BACK TO HOME
+             ================================================= -->
 
-</div>
+        <div class="daily-back-link">
+
+            <a href="{{ url_for('home') }}">
+                ← Back to Home
+            </a>
+
+        </div>
+
+    </main>
+
+
+
+    <!-- =====================================================
+         JAVASCRIPT
+         ===================================================== -->
+
+    <script>
+
+        /* =====================================================
+           NO-MILK REASON SHOW / HIDE
+           ===================================================== */
+
+        function updateReasonVisibility() {
+
+            const quantityInput =
+                document.getElementById("qty");
+
+            const reasonSection =
+                document.getElementById("noMilkReasonSection");
+
+            const reasonInput =
+                document.getElementById("reason");
+
+
+            if (!quantityInput || !reasonSection) {
+                return;
+            }
+
+
+            const quantity =
+                parseFloat(quantityInput.value);
+
+
+            if (quantity === 0) {
+
+                reasonSection.classList.add("show");
+
+                if (reasonInput) {
+                    reasonInput.required = true;
+                }
+
+            } else {
+
+                reasonSection.classList.remove("show");
+
+                if (reasonInput) {
+                    reasonInput.required = false;
+                }
+
+            }
+
+        }
+
+
+
+        /* =====================================================
+           QUANTITY CHANGE
+           ===================================================== */
+
+        const quantityInput =
+            document.getElementById("qty");
+
+
+        if (quantityInput) {
+
+            quantityInput.addEventListener(
+                "input",
+                updateReasonVisibility
+            );
+
+            quantityInput.addEventListener(
+                "change",
+                updateReasonVisibility
+            );
+
+            updateReasonVisibility();
+
+        }
+
+
+
+        /* =====================================================
+           SUCCESS TOAST CLOSE
+           ===================================================== */
+
+        function closeDailyEntryToast() {
+
+            const toast =
+                document.getElementById("dailyEntryToast");
+
+
+            if (toast) {
+
+                toast.classList.add("hide");
+
+                setTimeout(function() {
+
+                    toast.remove();
+
+                }, 300);
+
+            }
+
+        }
+
+
+
+        /* =====================================================
+           AUTO HIDE TOAST AFTER 10 SECONDS
+           ===================================================== */
+
+        window.addEventListener(
+            "load",
+            function() {
+
+                const toast =
+                    document.getElementById("dailyEntryToast");
+
+
+                if (toast) {
+
+                    setTimeout(
+                        function() {
+
+                            closeDailyEntryToast();
+
+                        },
+                        10000
+                    );
+
+                }
+
+            }
+        );
+
+
+
+        /* =====================================================
+           SET TODAY AS DEFAULT DATE WHEN EMPTY
+           ===================================================== */
+
+        const dateInput =
+            document.getElementById("date");
+
+
+        if (dateInput && !dateInput.value) {
+
+            const today =
+                new Date();
+
+            const year =
+                today.getFullYear();
+
+            const month =
+                String(
+                    today.getMonth() + 1
+                ).padStart(2, "0");
+
+            const day =
+                String(
+                    today.getDate()
+                ).padStart(2, "0");
+
+            dateInput.value =
+                `${year}-${month}-${day}`;
+
+        }
+
+    </script>
 
 </body>
 

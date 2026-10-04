@@ -1,5 +1,5 @@
 
-from flask import Flask, render_template, request, redirect, url_for
+from flask import Flask, render_template, request, redirect, url_for, flash
 import json
 import os
 from datetime import date, timedelta
@@ -8,7 +8,7 @@ import calendar
 
 app = Flask(__name__)
 
-
+app.secret_key = "ksheeradhara-secret-key"
 # =========================================================
 # BASE DIRECTORY
 # =========================================================
@@ -1051,6 +1051,10 @@ def add_customer():
             customers
         )
 
+        flash(
+                f"Customer '{name}' added successfully!",
+                "success"
+            )
 
         return redirect(
             url_for(
@@ -1093,6 +1097,7 @@ def delete_customer(customer_id):
     customers = load_customers()
 
     customer_exists = False
+    customer_name = "Customer"
 
     remaining_customers = []
 
@@ -1108,6 +1113,12 @@ def delete_customer(customer_id):
             ):
 
                 customer_exists = True
+
+                # Get customer name before deleting
+                customer_name = customer.get(
+                    "name",
+                    "Customer"
+                )
 
                 continue
 
@@ -1258,13 +1269,21 @@ def delete_customer(customer_id):
     )
 
 
+    # -----------------------------------------------------
+    # SUCCESS MESSAGE
+    # -----------------------------------------------------
+
+    flash(
+        f"Customer '{customer_name}' deleted successfully!",
+        "success"
+    )
+
+
     return redirect(
         url_for(
             "customers"
         )
     )
-
-
 # =========================================================
 # DAILY ENTRY
 # =========================================================

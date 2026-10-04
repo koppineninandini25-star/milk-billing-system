@@ -1,62 +1,734 @@
 <!DOCTYPE html>
-
 <html lang="en">
 
 <head>
-<meta charset="UTF-8">
 
-<meta name="viewport"
-      content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
 
-<title>Milk Billing System</title>
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
 
-<link rel="stylesheet"
-      href="{{ url_for('static', filename='style.css') }}">
-```
+    <title>KsheeraDhara | Milk Billing & Dairy Management</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
 
 </head>
 
-<body>
 
-```
-<div class="container">
+<body class="home-page">
 
-    <h1>🥛 Milk Billing System</h1>
 
-    <p>
-        Manage customers and monthly milk billing easily.
-    </p>
+    <!-- =================================================
+         NAVBAR
+         ================================================= -->
 
-    <div class="menu">
+    <nav class="home-navbar">
 
-        <a href="{{ url_for('add_customer') }}"
-           class="btn">
-            Add Customer
+
+        <!-- BRAND LOGO -->
+
+        <a href="{{ url_for('home') }}"
+           class="navbar-logo"
+           aria-label="KsheeraDhara Home">
+
+            <img src="{{ url_for('static', filename='images/ksheeradhara-logo.png') }}"
+                 alt="KsheeraDhara">
+
         </a>
 
-        <a href="{{ url_for('customers') }}"
-           class="btn">
-            View Customers
-        </a>
 
-        <a href="{{ url_for('daily_entry') }}"
-           class="btn">
-            Daily Entry
-        </a>
+        <!-- NAVIGATION -->
 
-        <a href="{{ url_for('monthly_report') }}"
-           class="btn">
-            Monthly Report
-        </a>
+        <div class="nav-links">
 
-        <a href="{{ url_for('previous_month_bills') }}"
-           class="btn">
-            Previous Month Bills
-        </a>
+            <a href="{{ url_for('home') }}"
+               class="nav-link active">
+                Home
+            </a>
+
+            <a href="{{ url_for('customers') }}"
+               class="nav-link">
+                Customers
+            </a>
+
+            <a href="{{ url_for('daily_entry') }}"
+               class="nav-link">
+                Daily Entry
+            </a>
+
+            <a href="{{ url_for('monthly_report') }}"
+               class="nav-link">
+                Monthly Report
+            </a>
+
+        </div>
+
+
+    </nav>
+
+
+
+    <!-- =================================================
+         CENTERED WELCOME TEXT
+         ================================================= -->
+
+    <div class="welcome-banner">
+
+        WELCOME TO KSHEERADHARA
 
     </div>
 
-</div>
+
+
+    <!-- =================================================
+         MAIN CONTENT
+         ================================================= -->
+
+    <main>
+
+
+        <!-- =================================================
+             HERO SECTION
+             ================================================= -->
+
+        <section class="hero-section">
+
+
+            <!-- LEFT SIDE -->
+
+            <div class="hero-content">
+
+                <div class="hero-text">
+
+
+                    <!-- MAIN HEADING -->
+
+                    <h1>
+
+                        Simple Milk Billing,
+
+                        <span>
+                            Made Effortless.
+                        </span>
+
+                    </h1>
+
+
+                    <p class="hero-description">
+
+                        Manage your customers, daily milk quantities,
+                        and monthly billing in one simple and organized place.
+
+                    </p>
+
+
+                    <!-- HERO BUTTONS -->
+
+                    <div class="hero-buttons">
+
+                        <a href="{{ url_for('add_customer') }}"
+                           class="primary-btn">
+
+                            Get Started
+
+                        </a>
+
+
+                        <a href="{{ url_for('customers') }}"
+                           class="secondary-btn">
+
+                            View Customers
+
+                        </a>
+
+                    </div>
+
+
+                    <!-- HERO BENEFITS -->
+
+                    <div class="hero-benefits">
+
+
+                        <div class="benefit-item">
+
+                            <span class="benefit-icon">
+                                ✓
+                            </span>
+
+                            <span>
+                                Easy to Manage
+                            </span>
+
+                        </div>
+
+
+                        <div class="benefit-item">
+
+                            <span class="benefit-icon">
+                                ✓
+                            </span>
+
+                            <span>
+                                Simple Billing
+                            </span>
+
+                        </div>
+
+
+                        <div class="benefit-item">
+
+                            <span class="benefit-icon">
+                                ✓
+                            </span>
+
+                            <span>
+                                Organized Records
+                            </span>
+
+                        </div>
+
+
+                    </div>
+
+
+                </div>
+
+            </div>
+
+
+
+            <!-- RIGHT SIDE -->
+
+            <div class="hero-visual">
+
+
+                <!-- LOGO DISPLAY -->
+
+                <div class="hero-logo-card">
+
+
+                    <div class="logo-glow"></div>
+
+
+                    <img src="{{ url_for('static', filename='images/ksheeradhara-logo.png') }}"
+                         alt="KsheeraDhara Logo"
+                         class="hero-logo">
+
+
+                </div>
+
+
+
+                <!-- CUSTOMER FLOATING CARD -->
+
+                <div class="floating-card card-one">
+
+
+                    <span class="floating-icon">
+                        👥
+                    </span>
+
+
+                    <div>
+
+                        <strong>
+                            Customers
+                        </strong>
+
+                        <small>
+                            Easy Management
+                        </small>
+
+                    </div>
+
+
+                </div>
+
+
+
+                <!-- BILL FLOATING CARD -->
+
+                <div class="floating-card card-two">
+
+
+                    <span class="floating-icon rupee-icon">
+                        ₹
+                    </span>
+
+
+                    <div>
+
+                        <strong>
+                            Monthly Bills
+                        </strong>
+
+                        <small>
+                            Simple Calculation
+                        </small>
+
+                    </div>
+
+
+                </div>
+
+
+
+                <!-- MILK RECORD FLOATING CARD -->
+
+                <div class="floating-card card-three">
+
+
+                    <span class="floating-icon">
+                        🥛
+                    </span>
+
+
+                    <div>
+
+                        <strong>
+                            Milk Records
+                        </strong>
+
+                        <small>
+                            Organized Daily
+                        </small>
+
+                    </div>
+
+
+                </div>
+
+
+            </div>
+
+
+        </section>
+
+
+
+        <!-- =================================================
+             QUICK ACCESS SECTION
+             ================================================= -->
+
+        <section class="quick-section">
+
+
+            <div class="section-heading">
+
+
+                <p>
+                    EVERYTHING IN ONE PLACE
+                </p>
+
+
+                <h2>
+                    Manage Your Milk Business Easily
+                </h2>
+
+
+                <span class="section-description">
+
+                    Everything you need for simple and organized
+                    milk billing is just a click away.
+
+                </span>
+
+
+            </div>
+
+
+
+            <!-- FEATURE CARDS -->
+
+            <div class="feature-grid">
+
+
+                <!-- CUSTOMER CARD -->
+
+                <a href="{{ url_for('customers') }}"
+                   class="feature-card">
+
+
+                    <div class="feature-icon">
+                        👥
+                    </div>
+
+
+                    <div class="feature-number">
+                        01
+                    </div>
+
+
+                    <h3>
+                        Customers
+                    </h3>
+
+
+                    <p>
+
+                        Add and manage your milk customers
+                        and their basic details.
+
+                    </p>
+
+
+                    <span class="feature-link">
+                        View Customers →
+                    </span>
+
+
+                </a>
+
+
+
+                <!-- DAILY ENTRY CARD -->
+
+                <a href="{{ url_for('daily_entry') }}"
+                   class="feature-card">
+
+
+                    <div class="feature-icon">
+                        📝
+                    </div>
+
+
+                    <div class="feature-number">
+                        02
+                    </div>
+
+
+                    <h3>
+                        Daily Entry
+                    </h3>
+
+
+                    <p>
+
+                        Record milk quantity whenever
+                        a customer's quantity changes.
+
+                    </p>
+
+
+                    <span class="feature-link">
+                        Open Daily Entry →
+                    </span>
+
+
+                </a>
+
+
+
+                <!-- MONTHLY REPORT CARD -->
+
+                <a href="{{ url_for('monthly_report') }}"
+                   class="feature-card">
+
+
+                    <div class="feature-icon">
+                        📊
+                    </div>
+
+
+                    <div class="feature-number">
+                        03
+                    </div>
+
+
+                    <h3>
+                        Monthly Report
+                    </h3>
+
+
+                    <p>
+
+                        View total liters, no-milk days,
+                        extra liters and billing amount.
+
+                    </p>
+
+
+                    <span class="feature-link">
+                        View Report →
+                    </span>
+
+
+                </a>
+
+
+
+                <!-- PREVIOUS BILLS CARD -->
+
+                <a href="{{ url_for('previous_month_bills') }}"
+                   class="feature-card">
+
+
+                    <div class="feature-icon">
+                        💰
+                    </div>
+
+
+                    <div class="feature-number">
+                        04
+                    </div>
+
+
+                    <h3>
+                        Previous Bills
+                    </h3>
+
+
+                    <p>
+
+                        Check previous month's pending
+                        bills before collecting payment.
+
+                    </p>
+
+
+                    <span class="feature-link">
+                        View Previous Bills →
+                    </span>
+
+
+                </a>
+
+
+            </div>
+
+
+        </section>
+
+
+
+        <!-- =================================================
+             HOW IT WORKS
+             ================================================= -->
+
+        <section class="process-section">
+
+
+            <div class="section-heading">
+
+
+                <p>
+                    HOW IT WORKS
+                </p>
+
+
+                <h2>
+                    Simple From Start to Finish
+                </h2>
+
+
+                <span class="section-description">
+
+                    Keep your daily milk records simple
+                    and your monthly billing organized.
+
+                </span>
+
+
+            </div>
+
+
+
+            <div class="process-grid">
+
+
+                <!-- STEP 1 -->
+
+                <div class="process-item">
+
+
+                    <div class="process-number">
+                        01
+                    </div>
+
+
+                    <div class="process-content">
+
+                        <h3>
+                            Add Customers
+                        </h3>
+
+
+                        <p>
+
+                            Add the customer's name,
+                            default quantity and rate.
+
+                        </p>
+
+                    </div>
+
+
+                </div>
+
+
+
+                <div class="process-line"></div>
+
+
+
+                <!-- STEP 2 -->
+
+                <div class="process-item">
+
+
+                    <div class="process-number">
+                        02
+                    </div>
+
+
+                    <div class="process-content">
+
+                        <h3>
+                            Record Changes
+                        </h3>
+
+
+                        <p>
+
+                            Enter only when the customer's
+                            milk quantity changes.
+
+                        </p>
+
+                    </div>
+
+
+                </div>
+
+
+
+                <div class="process-line"></div>
+
+
+
+                <!-- STEP 3 -->
+
+                <div class="process-item">
+
+
+                    <div class="process-number">
+                        03
+                    </div>
+
+
+                    <div class="process-content">
+
+                        <h3>
+                            View Monthly Bill
+                        </h3>
+
+
+                        <p>
+
+                            See the customer's complete
+                            monthly billing details.
+
+                        </p>
+
+                    </div>
+
+
+                </div>
+
+
+            </div>
+
+
+        </section>
+
+
+
+        <!-- =================================================
+             FINAL CALL TO ACTION
+             ================================================= -->
+
+        <section class="home-cta">
+
+
+            <div class="cta-content">
+
+
+                <p class="cta-small">
+                    READY TO GET STARTED?
+                </p>
+
+
+                <h2>
+                    Keep Your Milk Billing Simple.
+                </h2>
+
+
+                <p>
+
+                    KsheeraDhara keeps your daily records
+                    and monthly billing organized.
+
+                </p>
+
+
+                <!-- CTA BUTTON -->
+
+                <a href="{{ url_for('add_customer') }}"
+                   class="cta-btn">
+
+                    Add Your First Customer →
+
+                </a>
+
+
+            </div>
+
+
+        </section>
+
+
+    </main>
+
+
+
+    <!-- =================================================
+         FOOTER
+         ================================================= -->
+
+    <footer class="home-footer">
+
+
+        <!-- FOOTER LOGO -->
+
+        <div class="footer-brand">
+
+
+            <img src="{{ url_for('static', filename='images/ksheeradhara-logo.png') }}"
+                 alt="KsheeraDhara Logo"
+                 class="footer-logo">
+
+
+        </div>
+
+
+        <p class="footer-tagline">
+
+            Simple • Reliable • Organized
+
+        </p>
+
+
+        <p class="copyright">
+
+            © 2026 KsheeraDhara. All rights reserved.
+
+        </p>
+
+
+    </footer>
+
+
 </body>
 
 </html>

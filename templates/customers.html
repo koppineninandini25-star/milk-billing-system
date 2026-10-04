@@ -1,228 +1,855 @@
 <!DOCTYPE html>
+
 <html lang="en">
 
 <head>
 
-    <meta charset="UTF-8">
+<meta charset="UTF-8">
 
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1.0">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0">
 
-    <title>Customers</title>
+<title>Customers | KsheeraDhara</title>
 
-    <link rel="stylesheet"
-          href="{{ url_for('static', filename='style.css') }}">
-
-    <style>
-
-        /* Customer page white box */
-
-        .customers-container {
-            width: 92%;
-            max-width: 1100px;
-            margin: 50px auto;
-            background: white;
-            padding: 30px;
-            border-radius: 15px;
-            box-sizing: border-box;
-        }
-
-
-        /* Heading */
-
-        .customers-container h1 {
-            margin-top: 0;
-            margin-bottom: 25px;
-        }
-
-
-        /* Table */
-
-        .customers-table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-
-
-        /* Table header */
-
-        .customers-table th {
-            background: #f2f2f2;
-            color: #333;
-            padding: 12px 10px;
-            text-align: left;
-            font-weight: bold;
-            border-bottom: 1px solid #ddd;
-        }
-
-
-        /* Table data */
-
-        .customers-table td {
-            padding: 12px 10px;
-            color: #333;
-            border-bottom: 1px solid #ddd;
-        }
-
-
-        /* Delete symbol */
-
-        .delete-button {
-            background: none;
-            border: none;
-            cursor: pointer;
-            font-size: 15px;
-            padding: 0;
-            margin-left: 6px;
-        }
-
-
-        .delete-button:hover {
-            transform: scale(1.15);
-        }
-
-
-        /* Back link */
-
-        .customers-back {
-            display: inline-block;
-            margin-top: 25px;
-        }
-
-    </style>
+<link rel="stylesheet"
+      href="{{ url_for('static', filename='style.css') }}">
 
 </head>
 
 
-<body>
-
-    <div class="customers-container">
-
-        <h1>👥 Customers</h1>
+<body class="customers-page">
 
 
-        {% if customers %}
+<!-- ==================== NAVBAR ==================== -->
 
-        <table class="customers-table">
-
-            <thead>
-
-                <tr>
-
-                    <th>ID</th>
-
-                    <th>Name</th>
-
-                    <th>Details</th>
-
-                    <th>Daily Qty</th>
-
-                    <th>Rate/Liter</th>
-
-                    <th>Start Date</th>
-
-                </tr>
-
-            </thead>
+<nav class="home-navbar">
 
 
-            <tbody>
+<a href="{{ url_for('home') }}"
+   class="navbar-logo"
+   aria-label="KsheeraDhara Home">
 
-                {% for customer in customers %}
+    <img src="{{ url_for('static', filename='images/ksheeradhara-logo.png') }}"
+         alt="KsheeraDhara">
 
-                <tr>
-
-                    <td>
-                        {{ customer.id }}
-                    </td>
-
-
-                    <td>
-
-                        {{ customer.name }}
-
-                        <form
-                            method="POST"
-                            action="{{ url_for('delete_customer', customer_id=customer.id) }}"
-                            onsubmit="return confirmDelete('{{ customer.name }}');"
-                            style="display:inline;"
-                        >
-
-                            <button
-                                type="submit"
-                                class="delete-button"
-                                title="Delete Customer"
-                            >
-                                🗑️
-                            </button>
-
-                        </form>
-
-                    </td>
+</a>
 
 
-                    <td>
-                        {{ customer.details }}
-                    </td>
+<div class="nav-links">
+
+    <a href="{{ url_for('home') }}"
+       class="nav-link">
+
+        Home
+
+    </a>
 
 
-                    <td>
-                        {{ customer.default_qty }} L
-                    </td>
+    <a href="{{ url_for('customers') }}"
+       class="nav-link active">
+
+        Customers
+
+    </a>
 
 
-                    <td>
-                        ₹{{ customer.rate }}
-                    </td>
+    <a href="{{ url_for('daily_entry') }}"
+       class="nav-link">
+
+        Daily Entry
+
+    </a>
 
 
-                    <td>
-                        {{ customer.start_date }}
-                    </td>
+    <a href="{{ url_for('monthly_report') }}"
+       class="nav-link">
 
-                </tr>
+        Monthly Report
 
-                {% endfor %}
+    </a>
 
-            </tbody>
-
-        </table>
+</div>
 
 
-        {% else %}
+</nav>
 
-        <p>
-            No customers added yet.
+
+
+<!-- ==================== MAIN ==================== -->
+
+<main class="customers-main">
+
+
+<!-- ==================== SUCCESS MESSAGE ==================== -->
+
+{% with messages = get_flashed_messages(with_categories=true) %}
+
+    {% if messages %}
+
+        {% for category, message in messages %}
+
+        <div class="customer-toast {{ category }}"
+             id="customerToast">
+
+            <span class="toast-icon">
+                ✓
+            </span>
+
+            <span class="toast-message">
+                {{ message }}
+            </span>
+
+            <button
+                type="button"
+                class="toast-close"
+                onclick="closeToast()"
+                aria-label="Close"
+            >
+                ×
+            </button>
+
+        </div>
+
+        {% endfor %}
+
+    {% endif %}
+
+{% endwith %}
+
+
+
+<!-- ==================== PAGE HEADER ==================== -->
+
+<section class="customers-header">
+
+
+    <div class="customers-header-text">
+
+
+        <p class="customers-eyebrow">
+
+            CUSTOMER MANAGEMENT
+
         </p>
 
-        {% endif %}
+
+        <h1>
+
+            Your Customers
+
+        </h1>
 
 
-        <a
-            href="{{ url_for('home') }}"
-            class="back-link customers-back"
-        >
-            ← Back to Home
-        </a>
+        <p class="customers-description">
+
+            Manage your customers and keep their
+            milk billing details organized.
+
+        </p>
+
 
     </div>
 
 
-    <script>
 
-        function confirmDelete(customerName) {
+    <a href="{{ url_for('add_customer') }}"
+       class="customers-add-btn">
 
-            return confirm(
-                "Are you sure you want to delete " +
-                customerName +
-                "?\n\n" +
-                "This will also delete the customer's " +
-                "daily entries and monthly bill data."
+        <span>+</span>
+
+        Add Customer
+
+    </a>
+
+
+</section>
+
+
+
+<!-- ==================== CUSTOMER SUMMARY ==================== -->
+
+<section class="customer-summary">
+
+
+    <div class="summary-icon">
+
+        👥
+
+    </div>
+
+
+    <div class="summary-content">
+
+
+        <span>
+
+            TOTAL CUSTOMERS
+
+        </span>
+
+
+        <strong>
+
+            {{ customers|length }}
+
+        </strong>
+
+
+    </div>
+
+
+</section>
+
+
+
+<!-- ==================== CUSTOMER LIST ==================== -->
+
+{% if customers %}
+
+
+<section class="customer-list-section">
+
+
+    <div class="customer-list-heading">
+
+
+        <div>
+
+
+            <p>
+
+                YOUR CUSTOMER LIST
+
+            </p>
+
+
+            <h2>
+
+                All Customers
+
+            </h2>
+
+
+        </div>
+
+
+        <span class="customer-count">
+
+            {{ customers|length }}
+
+            Customer{% if customers|length != 1 %}s{% endif %}
+
+        </span>
+
+
+    </div>
+
+
+
+    <!-- ==================== CUSTOMER GRID ==================== -->
+
+    <div class="customer-grid">
+
+
+        {% for customer in customers %}
+
+
+        <article class="customer-card">
+
+
+            <!-- ==================== CARD TOP ==================== -->
+
+            <div class="customer-card-top">
+
+
+                <div class="customer-avatar">
+
+                    {{ customer.name[0]|upper }}
+
+                </div>
+
+
+                <div class="customer-name-area">
+
+
+                    <h3>
+
+                        {{ customer.name }}
+
+                    </h3>
+
+
+                    <span>
+
+                        Customer #{{ customer.id }}
+
+                    </span>
+
+
+                </div>
+
+
+            </div>
+
+
+
+            <!-- ==================== DETAILS ==================== -->
+
+            {% if customer.details %}
+
+
+            <div class="customer-details">
+
+
+                <span class="detail-icon">
+
+                    📍
+
+                </span>
+
+
+                <p>
+
+                    {{ customer.details }}
+
+                </p>
+
+
+            </div>
+
+
+            {% endif %}
+
+
+
+            <!-- ==================== BILLING INFORMATION ==================== -->
+
+            <div class="customer-info-grid">
+
+
+                <div class="customer-info">
+
+
+                    <span class="info-label">
+
+                        DAILY QUANTITY
+
+                    </span>
+
+
+                    <strong>
+
+                        🥛 {{ customer.default_qty }} L
+
+                    </strong>
+
+
+                </div>
+
+
+
+                <div class="customer-info">
+
+
+                    <span class="info-label">
+
+                        RATE / LITER
+
+                    </span>
+
+
+                    <strong class="rate-value">
+
+                        ₹{{ customer.rate }}
+
+                    </strong>
+
+
+                </div>
+
+
+            </div>
+
+
+
+            <!-- ==================== START DATE ==================== -->
+
+            <div class="customer-start-date">
+
+
+                <span>
+
+                    📅
+
+                </span>
+
+
+                <div>
+
+
+                    <small>
+
+                        START DATE
+
+                    </small>
+
+
+                    <strong>
+
+                        {{ customer.start_date }}
+
+                    </strong>
+
+
+                </div>
+
+
+            </div>
+
+
+
+            <!-- ==================== DELETE ACTION ==================== -->
+
+            <div class="customer-card-actions">
+
+
+                <form
+                    method="POST"
+                    action="{{ url_for('delete_customer', customer_id=customer.id) }}"
+                    class="delete-customer-form"
+                >
+
+
+                    <button
+                        type="button"
+                        class="customer-delete-btn"
+                        onclick="openDeleteModal(
+                            '{{ customer.id }}',
+                            '{{ customer.name|e }}'
+                        )"
+                    >
+
+                        <span>
+
+                            🗑
+
+                        </span>
+
+
+                        Delete Customer
+
+
+                    </button>
+
+
+                </form>
+
+
+            </div>
+
+
+        </article>
+
+
+        {% endfor %}
+
+
+    </div>
+
+
+</section>
+
+
+
+{% else %}
+
+
+
+<!-- ==================== EMPTY STATE ==================== -->
+
+<section class="customers-empty">
+
+
+    <div class="empty-icon">
+
+        👥
+
+    </div>
+
+
+    <h2>
+
+        No Customers Yet
+
+    </h2>
+
+
+    <p>
+
+        Start by adding your first milk customer.
+        Their billing details will appear here.
+
+    </p>
+
+
+    <a href="{{ url_for('add_customer') }}"
+       class="customers-empty-btn">
+
+        + Add Your First Customer
+
+    </a>
+
+
+</section>
+
+
+{% endif %}
+
+
+
+<!-- ==================== BACK LINK ==================== -->
+
+<div class="customers-back-wrapper">
+
+
+    <a href="{{ url_for('home') }}"
+       class="customers-back-link">
+
+        ← Back to Home
+
+    </a>
+
+
+</div>
+
+
+</main>
+
+
+
+<!-- ==================== FOOTER ==================== -->
+
+<footer class="home-footer">
+
+
+    <div class="footer-brand">
+
+
+        <img
+            src="{{ url_for('static', filename='images/ksheeradhara-logo.png') }}"
+            alt="KsheeraDhara Logo"
+            class="footer-logo"
+        >
+
+
+    </div>
+
+
+    <p class="footer-tagline">
+
+        Simple • Reliable • Organized
+
+    </p>
+
+
+    <p class="copyright">
+
+        © 2026 KsheeraDhara. All rights reserved.
+
+    </p>
+
+
+</footer>
+
+
+
+<!-- =====================================================
+     DELETE CONFIRMATION MODAL
+     ===================================================== -->
+
+<div
+    class="delete-modal-overlay"
+    id="deleteModal"
+>
+
+
+    <div
+        class="delete-modal"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="deleteModalTitle"
+    >
+
+
+        <!-- MODAL ICON -->
+
+        <div class="delete-modal-icon">
+
+            🗑
+
+        </div>
+
+
+
+        <!-- MODAL CONTENT -->
+
+        <div class="delete-modal-content">
+
+
+            <h2 id="deleteModalTitle">
+
+                Delete Customer?
+
+            </h2>
+
+
+            <p>
+
+                Are you sure you want to delete
+
+                <strong id="deleteCustomerName">
+                    this customer
+                </strong>?
+
+            </p>
+
+
+            <div class="delete-warning">
+
+                <span>
+                    ⚠
+                </span>
+
+                <p>
+
+                    This will also delete the customer's
+                    daily entries and monthly bill data.
+
+                </p>
+
+            </div>
+
+
+        </div>
+
+
+
+        <!-- MODAL ACTIONS -->
+
+        <div class="delete-modal-actions">
+
+
+            <button
+                type="button"
+                class="modal-cancel-btn"
+                onclick="closeDeleteModal()"
+            >
+
+                Cancel
+
+            </button>
+
+
+            <button
+                type="button"
+                class="modal-delete-btn"
+                onclick="confirmDeleteCustomer()"
+            >
+
+                <span>
+                    🗑
+                </span>
+
+                Delete Customer
+
+            </button>
+
+
+        </div>
+
+
+    </div>
+
+</div>
+
+
+
+<!-- =====================================================
+     JAVASCRIPT
+     ===================================================== -->
+
+<script>
+
+
+let selectedCustomerId = null;
+
+
+/* ==================== OPEN DELETE MODAL ==================== */
+
+function openDeleteModal(customerId, customerName) {
+
+    selectedCustomerId = customerId;
+
+
+    document.getElementById(
+        "deleteCustomerName"
+    ).textContent = customerName;
+
+
+    document.getElementById(
+        "deleteModal"
+    ).classList.add("show");
+
+
+    document.body.classList.add(
+        "modal-open"
+    );
+
+}
+
+
+/* ==================== CLOSE DELETE MODAL ==================== */
+
+function closeDeleteModal() {
+
+    document.getElementById(
+        "deleteModal"
+    ).classList.remove("show");
+
+
+    document.body.classList.remove(
+        "modal-open"
+    );
+
+
+    selectedCustomerId = null;
+
+}
+
+
+/* ==================== CONFIRM DELETE ==================== */
+
+function confirmDeleteCustomer() {
+
+    if (!selectedCustomerId) {
+        return;
+    }
+
+
+    const form = document.querySelector(
+        'form[action$="/delete_customer/' +
+        selectedCustomerId +
+        '"]'
+    );
+
+
+    if (form) {
+
+        form.submit();
+
+    }
+
+}
+
+
+/* ==================== CLOSE MODAL BY CLICKING OUTSIDE ==================== */
+
+document.getElementById(
+    "deleteModal"
+).addEventListener(
+    "click",
+    function(event) {
+
+        if (
+            event.target === this
+        ) {
+
+            closeDeleteModal();
+
+        }
+
+    }
+);
+
+
+/* ==================== ESCAPE KEY ==================== */
+
+document.addEventListener(
+    "keydown",
+    function(event) {
+
+        if (
+            event.key === "Escape"
+        ) {
+
+            closeDeleteModal();
+
+        }
+
+    }
+);
+
+
+/* ==================== SUCCESS TOAST ==================== */
+
+function closeToast() {
+
+    const toast = document.getElementById(
+        "customerToast"
+    );
+
+
+    if (toast) {
+
+        toast.classList.add(
+            "hide"
+        );
+
+
+        setTimeout(
+            function() {
+
+                toast.remove();
+
+            },
+            300
+        );
+
+    }
+
+}
+
+
+/* ==================== AUTO HIDE TOAST ==================== */
+
+window.addEventListener(
+    "load",
+    function() {
+
+        const toast = document.getElementById(
+            "customerToast"
+        );
+
+
+        if (toast) {
+
+            setTimeout(
+                function() {
+
+                    closeToast();
+
+                },
+                10000
             );
 
         }
 
-    </script>
+    }
+);
+
+
+</script>
+
 
 </body>
 
