@@ -1,6 +1,6 @@
 # 🥛 KsheeraDhara – Milk Billing System
 
-A simple web application built with Python and Flask to manage milk customers, track daily milk consumption, and calculate monthly bills.
+A simple web application built with **Python and Flask** to manage milk customers, track daily milk consumption, and calculate monthly bills.
 
 KsheeraDhara helps milk suppliers organize customer records and billing in one place, reducing manual calculations and making monthly billing easier.
 
@@ -38,14 +38,11 @@ KsheeraDhara simplifies this process by organizing customer details, recording d
 - Clear presentation of customer details and billing information.
 - Responsive styling for different screen sizes.
 
-## 🖥️ Screenshots
+## 🖥️ Application Screenshot
 
-Screenshots of the application are provided below to demonstrate its main pages and features.
+### 🏠 Home Page
 
-### Home Page
 ![KsheeraDhara Home Page](screenshots/home.png)
-
-> **Note:** Save your actual application screenshots in the `screenshots` folder using the filenames shown above. GitHub will display them when the files are uploaded.
 
 ## 🔄 How It Works
 
@@ -68,9 +65,9 @@ Screenshots of the application are provided below to demonstrate its main pages 
 
 ## 📁 Project Structure
 
-<details>
-<summary>View complete project structure</summary>
-``` text
+The project is organized into separate files and folders for application logic, web pages, styling, and data storage.
+
+```text
 milk_app/
 ├── app.py
 ├── README.md
@@ -92,19 +89,19 @@ milk_app/
 │   └── images/
 │       └── ksheeradhara-logo.png
 └── screenshots/
-    ├── home.png
-    
+    └── home.png
 ```
-</details>
 
-### JSON Files
+### 📄 Important Files and Folders
 
-- `customers.json` – Customer information.
-- `daily_entries.json` – Daily milk entry records.
-- `monthly_bills.json` – Monthly billing records.
-- `cleared_bills.json` – Cleared bill records.
-
-The `templates` folder contains the HTML pages, while the `static` folder contains the stylesheet and logo.
+- **`app.py`** — Contains the Flask application and application routes.
+- **`templates/`** — Contains the HTML pages used to display the application.
+- **`static/`** — Contains CSS styling and the KsheeraDhara logo.
+- **`customers.json`** — Stores customer information.
+- **`daily_entries.json`** — Stores daily milk entry records.
+- **`monthly_bills.json`** — Stores monthly billing records.
+- **`cleared_bills.json`** — Stores cleared bill records.
+- **`screenshots/`** — Contains screenshots used in the README.
 
 **Sample data:** The JSON files included in this repository contain fictional data for demonstration and testing. They do not represent actual customer records.
 
@@ -112,7 +109,7 @@ When using the application with real customers, keep their information private a
 
 ## 🚀 Getting Started
 
-Follow these steps to run the application locally.
+Follow these steps to run the application on your computer.
 
 ### Prerequisites
 
@@ -121,38 +118,42 @@ Follow these steps to run the application locally.
 
 ### 1. Clone the Repository
 
-bash
-git clone YOUR_REPOSITORY_URL
+Replace `YOUR_REPOSITORY_URL` with the HTTPS URL of your GitHub repository.
 
+```bash
+git clone https://github.com/koppineninandini25-star/milk-billing-system.git
+```
 
 ### 2. Open the Project Folder
 
-bash
+```bash
 cd milk_app
-
+```
 
 ### 3. Create and Activate a Virtual Environment
 
-powershell
+For Windows PowerShell:
+
+```powershell
 python -m venv venv
 .\venv\Scripts\Activate.ps1
-
+```
 
 ### 4. Install Flask
 
-bash
+```bash
 python -m pip install Flask
-
+```
 
 ### 5. Run the Application
 
-bash
+```bash
 python app.py
-
+```
 
 Open the following address in your browser:
 
-http://127.0.0.1:5000/
+[http://127.0.0.1:5000/](http://127.0.0.1:5000/)
 
 ## 💾 Data Storage
 
