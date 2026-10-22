@@ -80,20 +80,17 @@ Screenshots of the application are provided below to demonstrate its main pages 
 
 ## 📁 Project Structure
 
-text
+<details>
+<summary>View complete project structure</summary>
+
 milk_app/
 ├── app.py
+├── README.md
+├── .gitignore
 ├── customers.json
 ├── daily_entries.json
 ├── monthly_bills.json
 ├── cleared_bills.json
-├── README.md
-├── screenshots/
-│   ├── home.png
-│   ├── customers.png
-│   ├── daily-entry.png
-│   ├── monthly-report.png
-│   └── previous-bills.png
 ├── templates/
 │   ├── index.html
 │   ├── add_customer.html
@@ -102,11 +99,18 @@ milk_app/
 │   ├── monthly_report.html
 │   ├── previous_month_bills.html
 │   └── previous_bill_detail.html
-└── static/
-    ├── style.css
-    └── images/
-        └── ksheeradhara-logo.png
+├── static/
+│   ├── style.css
+│   └── images/
+│       └── ksheeradhara-logo.png
+└── screenshots/
+    ├── home.png
+    ├── customers.png
+    ├── daily-entry.png
+    ├── monthly-report.png
+    └── previous-bills.png
 
+</details>
 
 ### JSON Files
 
