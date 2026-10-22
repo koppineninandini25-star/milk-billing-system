@@ -1,0 +1,98 @@
+[
+    {
+        "id": 1,
+        "name": "Ravi",
+        "details": "Main Road",
+        "default_qty": 1.0,
+        "rate": 60.0,
+        "start_date": "2026-09-27"
+    },
+    {
+        "id": 2,
+        "name": "Balu",
+        "details": "beside house",
+        "default_qty": 2.0,
+        "rate": 180.0,
+        "start_date": "2026-10-01"
+    },
+    {
+        "id": 3,
+        "name": "mahi",
+        "details": "near shop",
+        "default_qty": 3.0,
+        "rate": 70.0,
+        "start_date": "2026-10-01"
+    },
+    {
+        "id": 4,
+        "name": "bismill",
+        "details": "begam peta",
+        "default_qty": 2.0,
+        "rate": 180.0,
+        "start_date": "2026-10-01"
+    },
+    {
+        "id": 5,
+        "name": "sureka",
+        "details": "bustop",
+        "default_qty": 3.0,
+        "rate": 70.0,
+        "start_date": "2026-10-01"
+    },
+    {
+        "id": 6,
+        "name": "Manu",
+        "details": "shamshabadh",
+        "default_qty": 1.0,
+        "rate": 80.0,
+        "start_date": "2026-10-02"
+    },
+    {
+        "id": 7,
+        "name": "shrivasthav",
+        "details": "bank colony",
+        "default_qty": 2.0,
+        "rate": 80.0,
+        "start_date": "2026-10-01"
+    },
+    {
+        "id": 8,
+        "name": "chitti",
+        "details": "gowhathi",
+        "default_qty": 3.0,
+        "rate": 60.0,
+        "start_date": "2026-10-04"
+    },
+    {
+        "id": 9,
+        "name": "fani",
+        "details": "cement road",
+        "default_qty": 1.0,
+        "rate": 80.0,
+        "start_date": "2026-09-30"
+    },
+    {
+        "id": 10,
+        "name": "fahima",
+        "details": "the end",
+        "default_qty": 1.0,
+        "rate": 60.0,
+        "start_date": "2026-09-26"
+    },
+    {
+        "id": 11,
+        "name": "kalyani",
+        "details": "gatehub",
+        "default_qty": 2.0,
+        "rate": 60.0,
+        "start_date": "2026-10-03"
+    },
+    {
+        "id": 12,
+        "name": "janu",
+        "details": "himayath nagar",
+        "default_qty": 1.0,
+        "rate": 70.0,
+        "start_date": "2026-10-06"
+    }
+]

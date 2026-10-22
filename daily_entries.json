@@ -1,0 +1,104 @@
+[
+    {
+        "customer_id": 1,
+        "date": "2026-10-01",
+        "qty": 0.0,
+        "reason": "going home"
+    },
+    {
+        "customer_id": 3,
+        "date": "2026-10-01",
+        "qty": 3.5,
+        "reason": ""
+    },
+    {
+        "customer_id": 2,
+        "date": "2026-10-01",
+        "qty": 0.0,
+        "reason": "went to tour"
+    },
+    {
+        "customer_id": 5,
+        "date": "2026-10-04",
+        "qty": 3.5,
+        "reason": ""
+    },
+    {
+        "customer_id": 6,
+        "date": "2026-10-04",
+        "qty": 0.0,
+        "reason": "Went to hospital"
+    },
+    {
+        "customer_id": 4,
+        "date": "2026-10-04",
+        "qty": 0.0,
+        "reason": "went to park"
+    },
+    {
+        "customer_id": 3,
+        "date": "2026-10-04",
+        "qty": 0.0,
+        "reason": "went to park"
+    },
+    {
+        "customer_id": 1,
+        "date": "2026-09-29",
+        "qty": 1.0,
+        "reason": ""
+    },
+    {
+        "customer_id": 1,
+        "date": "2026-09-28",
+        "qty": 1.0,
+        "reason": ""
+    },
+    {
+        "customer_id": 1,
+        "date": "2026-09-30",
+        "qty": 3.0,
+        "reason": ""
+    },
+    {
+        "customer_id": 8,
+        "date": "2026-10-04",
+        "qty": 4.0,
+        "reason": ""
+    },
+    {
+        "customer_id": 11,
+        "date": "2026-10-05",
+        "qty": 2.5,
+        "reason": ""
+    },
+    {
+        "customer_id": 4,
+        "date": "2026-10-06",
+        "qty": 1.0,
+        "reason": ""
+    },
+    {
+        "customer_id": 10,
+        "date": "2026-10-06",
+        "qty": 0.0,
+        "reason": "went to holiday"
+    },
+    {
+        "customer_id": 7,
+        "date": "2026-10-06",
+        "qty": 1.5,
+        "reason": ""
+    },
+    {
+        "customer_id": 6,
+        "date": "2026-10-06",
+        "qty": 2.0,
+        "reason": ""
+    },
+    {
+        "customer_id": 5,
+        "date": "2026-10-06",
+        "qty": 2.5,
+        "reason": ""
+    }
+]
