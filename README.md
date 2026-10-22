@@ -45,18 +45,6 @@ Screenshots of the application are provided below to demonstrate its main pages 
 ### Home Page
 ![KsheeraDhara Home Page](screenshots/home.png)
 
-### Customer Management
-![Customer Management](screenshots/customers.png)
-
-### Daily Milk Entry
-![Daily Milk Entry](screenshots/daily-entry.png)
-
-### Monthly Milk Report
-![Monthly Milk Report](screenshots/monthly-report.png)
-
-### Previous Month Bills
-![Previous Month Bills](screenshots/previous-bills.png)
-
 > **Note:** Save your actual application screenshots in the `screenshots` folder using the filenames shown above. GitHub will display them when the files are uploaded.
 
 ## 🔄 How It Works
@@ -82,7 +70,7 @@ Screenshots of the application are provided below to demonstrate its main pages 
 
 <details>
 <summary>View complete project structure</summary>
-
+``` text
 milk_app/
 ├── app.py
 ├── README.md
@@ -105,11 +93,8 @@ milk_app/
 │       └── ksheeradhara-logo.png
 └── screenshots/
     ├── home.png
-    ├── customers.png
-    ├── daily-entry.png
-    ├── monthly-report.png
-    └── previous-bills.png
-
+    
+```
 </details>
 
 ### JSON Files
