@@ -118,8 +118,6 @@ Follow these steps to run the application on your computer.
 
 ### 1. Clone the Repository
 
-Replace `YOUR_REPOSITORY_URL` with the HTTPS URL of your GitHub repository.
-
 ```bash
 git clone https://github.com/koppineninandini25-star/milk-billing-system.git
 ```
